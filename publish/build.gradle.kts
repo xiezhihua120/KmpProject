@@ -7,6 +7,7 @@ plugins {
 kotlin {
     targetHierarchy.default()
 
+    // android平台
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -14,7 +15,8 @@ kotlin {
             }
         }
     }
-    
+
+    // ios平台
     listOf(
         iosX64(),
         iosArm64(),
@@ -25,7 +27,25 @@ kotlin {
         }
     }
 
+    // native平台
+    val hostOs = System.getProperty("os.name")
+    val isArm64 = System.getProperty("nativeType") == "macArm"
+    val isMingwX64 = hostOs.startsWith("Windows")
+    val nativeTarget = when {
+        hostOs == "Mac OS X" && isArm64 -> macosArm64("nativePc") {
+            binaries.staticLib("macosArm64") { baseName = "kmpLib" }
+        }
+        hostOs == "Mac OS X" && !isArm64 -> macosX64("nativePc")  {
+            binaries.staticLib("macosX64") { baseName = "kmpLib" }
+        }
+        isMingwX64 -> mingwX64("nativePc") {
+            binaries.sharedLib("winX64") { baseName = "kmpLib" }
+        }
+        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+    }
+
     sourceSets {
+        // 共享代码
         val commonMain by getting {
             dependencies {
                 //put your multiplatform dependencies here
@@ -35,6 +55,21 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.test)
             }
+        }
+
+        // android代码
+        val androidMain by getting {
+            dependsOn(commonMain)
+        }
+
+        // ios代码
+        val iosMain by getting {
+            dependsOn(commonMain)
+        }
+
+        // native代码
+        val nativePcMain by getting {
+            dependsOn(commonMain)
         }
     }
 }
