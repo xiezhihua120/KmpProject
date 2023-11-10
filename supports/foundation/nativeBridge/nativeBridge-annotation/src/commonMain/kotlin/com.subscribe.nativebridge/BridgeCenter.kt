@@ -1,9 +1,10 @@
 package com.subscribe.nativebridge
 
-import com.subscribe.nativebridge.module.BridgeModule
-import com.subscribe.nativebridge.module.BridgeModuleCenter
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
+import kotlinx.serialization.decodeFromByteArray
+import kotlinx.serialization.encodeToByteArray
+import kotlinx.serialization.protobuf.ProtoBuf
 
 /**
  * Created on 2023/11/10
@@ -43,3 +44,11 @@ object BridgeCenter: SynchronizedObject() {
 
 typealias MethodReturnListener = (reqId: String, module: String, method: String, data: ByteArray) -> Unit
 typealias EventReceiveListener = (reqId: String, module: String, method: String, data: ByteArray) -> Unit
+
+inline fun < reified T : Any> T.toPBArray(): ByteArray {
+    return ProtoBuf.encodeToByteArray(this)
+}
+
+inline fun <reified T : Any> ByteArray.fromPBArray(): T {
+    return ProtoBuf.decodeFromByteArray(this)
+}

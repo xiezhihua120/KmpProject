@@ -1,6 +1,3 @@
-import com.subscribe.nativebridge.annotation.Module
-import com.subscribe.nativebridge.annotation.Event
-import com.subscribe.nativebridge.annotation.Method
 import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.processing.CodeGenerator
@@ -21,6 +18,12 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asTypeName
+import com.subscribe.nativebridge.annotation.Event
+import com.subscribe.nativebridge.annotation.Method
+import com.subscribe.nativebridge.annotation.MethodReturn
+import com.subscribe.nativebridge.annotation.Module
+import com.subscribe.nativebridge.annotation.Param
+import com.subscribe.nativebridge.annotation.Return
 import com.subscribe.nativebridge.event.EventHandlerBase
 import com.subscribe.nativebridge.method.MethodHandlerBase
 import com.subscribe.nativebridge.module.BridgeModule
@@ -35,30 +38,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
     companion object {
         const val MODULE_PREFIX = "JSBridgeModule"
         const val FACTORY_NAME = "JSBridgeModuleFactory"
-
-//        const val MODULE_NAME_FIELD = "module"
-//        const val MODULE_METHOD_HANDLERS_FILED = "methodHandlers"
-//        const val MODULE_EVENT_HANDLERS_FILED = "eventHandlers"
-//        const val MODULE_INIT_METHOD = "initModule"
-//        const val FACTORY_MODULES_FIELD = "modules"
-//        const val FACTORY_INIT_METHOD = "initModules"
-//        const val FACTORY_GET_METHOD = "getModule"
-
-//        val BRIDGE_PROVIDER_CLASS =
-//            ClassName("com.subscribe.multiplatform.jsbrige", "JSBridgeModuleProvider")
-//        val BRIDGE_MODULE_CLASS = ClassName("com.subscribe.multiplatform.jsbrige.module", "BridgeModule")
-//        val STRING_CLASS = ClassName("kotlin", "String")
-        val MUTABLE_MAP_CLASS = ClassName("kotlin.collections", "MutableMap")
-//        val METHOD_HANDLER_CLASS =
-//            ClassName("com.subscribe.multiplatform.jsbrige.method", "MethodHandler")
-//        val EVENT_HANDLER_CLASS =
-//            ClassName("com.subscribe.multiplatform.jsbrige.event", "EventHandlerBase")
-//        val JS_CALLBACK_CLASS = ClassName("com.subscribe.multiplatform.jsbrige", "JsCallbackInvoker")
-//        val MUTABLE_MAP_METHODS_CLASS = MutableMap::class.parameterizedBy(String::class, MethodHandlerBase::class)
-//        val MUTABLE_MAP_EVENTS_CLASS =
-//            MUTABLE_MAP_CLASS.parameterizedBy(STRING_CLASS, EVENT_HANDLER_CLASS)
-//        val MUTABLE_MAP_MODULES_CLASS =
-//            MUTABLE_MAP_CLASS.parameterizedBy(STRING_CLASS, BRIDGE_MODULE_CLASS)
+        private val MUTABLE_MAP_CLASS = ClassName("kotlin.collections", "MutableMap")
     }
 
     private var invoked = false
@@ -87,6 +67,9 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 logger.warn("jsModule: [${jsModule.name}]")
                 val fileSpec = FileSpec.builder(this.pkgName, "${MODULE_PREFIX}${jsModule.name}")
                     .addImport(pkgName, className)
+                    .addImport(MethodReturn::class.java.kotlin, "")
+                    .addImport("com.subscribe.nativebridge", "fromPBArray")
+                    .addImport("com.subscribe.nativebridge", "toPBArray")
                 val classSpec = TypeSpec.objectBuilder("${MODULE_PREFIX}${jsModule.name}")
                     .addModifiers(KModifier.INTERNAL).addSuperinterface(BridgeModule::class)
                 // 属性module
@@ -113,22 +96,33 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                     .addModifiers(KModifier.OVERRIDE)
 
                 // 模块方法
-                ksClassDec.declarations.filter { it is KSFunctionDeclaration }.forEach { kfun ->
-                    val jsMethod = kfun.getAnnotationsByType(Method::class).firstOrNull()
-                        ?: return@forEach
-                    logger.warn("jsMethod: [${jsModule.name}-${jsMethod.name}]")
-                    initModule.addCode(
-                        """
-                        |// Method: ${jsMethod.name}
-                        |${BridgeModule::methodHandlers.name}["${jsMethod.name}"] = object: MethodHandlerBase() {
-                        |    override fun handle(reqId: String, module: String, method: String, params: ByteArray) {
-                        |        $ksClass.${kfun.simpleName.getShortName()}(params)  {
-                        |            this.sendCallback(reqId, it, callback)
-                        |        }
-                        |    }
-                        |}
-                        |
-                        |""".trimMargin()
+                ksClassDec.declarations.filter { it is KSFunctionDeclaration }
+                    .map { it as KSFunctionDeclaration }.forEach { kfun ->
+                        val jsMethod = kfun.getAnnotationsByType(Method::class).firstOrNull()
+                            ?: return@forEach
+
+                        val jsParam = kfun.parameters.find { it.getAnnotationsByType(Param::class).any() }
+                        val jsParamType = jsParam?.type?.resolve()?.declaration?.simpleName?.asString()
+                        val jsReturn = kfun.parameters.find { it.getAnnotationsByType(Return::class).any() }
+                        val jsReturnType = jsReturn?.type?.resolve()?.declaration?.simpleName?.asString()
+                        val jsReturnPType = jsReturn?.type?.resolve()?.declaration?.typeParameters?.firstOrNull()?.simpleName?.asString()
+
+                        logger.warn("jsMethod: [${jsModule.name}-${jsMethod.name}]")
+                        initModule.addCode(
+                            """
+                            |// Method: ${jsMethod.name}
+                            |${BridgeModule::methodHandlers.name}["${jsMethod.name}"] = object: MethodHandlerBase() {
+                            |    override fun handle(reqId: String, module: String, method: String, params: ByteArray) {
+                            |        val req = params.fromPBArray<${jsParamType}>()
+                            |        $ksClass.${kfun.simpleName.getShortName()}(req, object : $jsReturnType<$jsReturnPType> {
+                            |           override fun invoke(result: Any) {
+                            |               onMethodReturn(reqId, module, method, result.toPBArray())
+                            |           }
+                            |        })
+                            |    }
+                            |}
+                            |
+                            |""".trimMargin()
                     )
                 }
 
