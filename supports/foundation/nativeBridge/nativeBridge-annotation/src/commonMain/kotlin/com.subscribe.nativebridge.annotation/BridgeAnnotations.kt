@@ -1,38 +1,36 @@
 package com.subscribe.nativebridge.annotation
 
-import kotlin.reflect.KClass
-
 /**
  * 模块定义
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
-annotation class BridgeModule(val name: String)
+annotation class Module(val name: String)
 
 /**
  * 事件定义
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
-annotation class BridgeEvent(val name: String, val clazz: KClass<*>)
+annotation class Event(val name: String)
 
 /**
  * 方法定义
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.SOURCE)
-annotation class BridgeMethod(val name: String)
+annotation class Method(val name: String)
 
 /**
  * 方法入参定义
  */
-@Target(AnnotationTarget.LOCAL_VARIABLE)
+@Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.SOURCE)
-annotation class BridgeParam
+annotation class Param
 
 /**
  * 方法返回定义
  */
-@Target(AnnotationTarget.LOCAL_VARIABLE)
+@Target(AnnotationTarget.VALUE_PARAMETER)
 @Retention(AnnotationRetention.SOURCE)
-annotation class BridgeReturn
+annotation class Return

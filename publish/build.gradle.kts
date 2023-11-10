@@ -48,6 +48,7 @@ kotlin {
         // 共享代码
         val commonMain by getting {
             dependencies {
+                implementation(project(":nativeBridge-annotation"))
                 api(project(":welcome"))
             }
         }

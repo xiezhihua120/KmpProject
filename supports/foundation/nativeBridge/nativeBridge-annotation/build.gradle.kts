@@ -15,7 +15,11 @@ kotlin {
             }
         }
     }
-    iosArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    )
     macosArm64()
     macosX64()
     mingwX64()
