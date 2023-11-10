@@ -5,7 +5,11 @@ package com.subscribe.nativebridge.annotation
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
-annotation class Module(val name: String)
+annotation class Module(
+    val name: String,
+    val enableRecvThread: Boolean = true,
+    val enableSendThread: Boolean = true,
+)
 
 /**
  * 事件定义

@@ -1,13 +1,23 @@
 package com.subscribe.nativebridge.bridge
 
+import com.subscribe.nativebridge.BridgeCenter
+import com.subscribe.nativebridge.method.MethodHandler
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.cstr
 import kotlinx.cinterop.invoke
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.readBytes
+import kotlinx.cinterop.toCValues
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
 
 /**
  * Created on 2023/11/10
@@ -18,17 +28,24 @@ import kotlinx.coroutines.flow.update
 object NativeBridgeApi : NativeBridge, SynchronizedObject() {
 
     private const val TAG = "JSBridgeApi"
-    const val DEBUG = false
+    private const val DEBUG = false
 
     private val methodCallback = MutableStateFlow<MethodCallback?>(null)
     private val eventCallback = MutableStateFlow<EventCallback?>(null)
+    private val sendScope = CoroutineScope(newSingleThreadContext("sendContext") + Job())
+    private val recvScope = CoroutineScope(newSingleThreadContext("recvContext") + Job())
 
     init {
         synchronized(this) {
             println("${TAG}: NativeBridgeApi init")
+            this.initMethodReturn()
+            this.initEventSend()
         }
     }
 
+    /**
+     * register method callback ptr
+     */
     override fun registerMethodCallback(callback: MethodCallbackPtr) {
         synchronized(this) {
             println("${TAG}: registerMethodCallback")
@@ -40,6 +57,9 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
         }
     }
 
+    /**
+     * register event callback ptr
+     */
     override fun registerEventCallback(callback: EventCallbackPtr) {
         synchronized(this) {
             println("${TAG}: registerEventCallback")
@@ -51,6 +71,9 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
         }
     }
 
+    /**
+     * receive method request
+     */
     override fun receiveMethod(
         reqId: String,
         module: String,
@@ -58,10 +81,65 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
         pbBytes: CPointer<ByteVar>?,
         size: Int
     ) {
-        TODO("Not yet implemented")
+        if (DEBUG) {
+            println("${TAG}: sendJsRequest: $reqId, $module, $method, $size")
+        }
+        val bridgeModule = BridgeCenter.getModule(module)
+        val methodHandler = bridgeModule.getMethodHandler(method)
+
+        val params = pbBytes?.readBytes(size) ?: ByteArray(0)
+        val scope = if (bridgeModule.enableRecvThread) recvScope else null
+        launchCoroutine(scope) {
+            methodHandler.handle(reqId, module, method, params)
+        }
     }
 
-    override fun sendEvent(module: String, method: String, pbBytes: CPointer<ByteVar>, size: Int) {
-        TODO("Not yet implemented")
+    private fun initMethodReturn() {
+        BridgeCenter.registerMethodReturnListener { reqId, module, method, data ->
+            if (DEBUG) {
+                println("${MethodHandler.TAG} method return: $reqId, $module, $method, ${data.size}")
+            }
+            val bridgeModule = BridgeCenter.getModule(module)
+            val scope = if (bridgeModule.enableSendThread) sendScope else null
+            launchCoroutine(scope) {
+                memScoped {
+                    methodCallback.value?.invoke(
+                        reqId.cstr,
+                        module.cstr,
+                        method.cstr,
+                        data.toCValues().getPointer(this),
+                        data.size
+                    )
+                }
+            }
+        }
+    }
+
+    private fun initEventSend() {
+        BridgeCenter.registerEventSendListener { reqId, module, method, data ->
+            if (DEBUG) {
+                println("${MethodHandler.TAG} method return: $reqId, $module, $method, ${data.size}")
+            }
+            val bridgeModule = BridgeCenter.getModule(module)
+            val scope = if (bridgeModule.enableSendThread) sendScope else null
+            launchCoroutine(scope) {
+                memScoped {
+                    eventCallback.value?.invoke(
+                        module.cstr,
+                        method.cstr,
+                        data.toCValues().getPointer(this),
+                        data.size
+                    )
+                }
+            }
+        }
+    }
+
+    private inline fun launchCoroutine(scope: CoroutineScope?, crossinline block: () -> Unit) {
+        if (scope != null) {
+            scope.launch { block.invoke() }
+        } else {
+            block.invoke()
+        }
     }
 }

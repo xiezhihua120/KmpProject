@@ -16,12 +16,12 @@ import kotlinx.cinterop.ExperimentalForeignApi
 interface NativeBridge {
 
     /**
-     * register method Callback
+     * register method callback ptr
      */
     fun registerMethodCallback(callback: MethodCallbackPtr)
 
     /**
-     * register event Listener
+     * register event callback ptr
      */
     fun registerEventCallback(listener: EventCallbackPtr)
 
@@ -31,11 +31,6 @@ interface NativeBridge {
     fun receiveMethod(
         reqId: String, module: String, method: String, pbBytes: CPointer<ByteVar>?, size: Int
     )
-
-    /**
-     * send event request
-     */
-    fun sendEvent(module: String, method: String, pbBytes: CPointer<ByteVar>, size: Int)
 }
 
 

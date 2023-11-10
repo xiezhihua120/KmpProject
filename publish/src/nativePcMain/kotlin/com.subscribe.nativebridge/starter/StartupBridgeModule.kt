@@ -6,20 +6,21 @@ import com.subscribe.nativebridge.annotation.Module
 import com.subscribe.nativebridge.annotation.Param
 import com.subscribe.nativebridge.annotation.Return
 import com.subscribe.nativebridge.annotation.MethodReturn
+import com.subscribe.nativebridge.event.EventHandlerBase
 
 /**
  * Created on 2023/11/10
  * @author：xiezh
  * @function：启动模块
  */
-@Module("Startup")
+@Module(name = "Startup", enableRecvThread = true, enableSendThread = true)
 object StartupBridgeModule {
 
     @Event("add")
-    object EventHandlerAdd
+    object EventAdd : EventHandlerBase()
 
     @Event("remove")
-    object EventHandlerRemove
+    object EventRemove : EventHandlerBase()
 
     @Method("init")
     fun init(@Param params: String?, @Return methodReturn: MethodReturn<Any>) {

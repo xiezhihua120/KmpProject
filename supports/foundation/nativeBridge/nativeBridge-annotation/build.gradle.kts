@@ -24,7 +24,11 @@ kotlin {
     macosX64()
     mingwX64()
     sourceSets {
-        val commonMain by getting {}
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
+            }
+        }
     }
 }
 
