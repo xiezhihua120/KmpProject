@@ -1,4 +1,4 @@
-package com.subscribe.nativebridge.starter
+package com.subscribe.nativebridge.modules.account
 
 import com.subscribe.nativebridge.annotation.Event
 import com.subscribe.nativebridge.annotation.Method
@@ -11,10 +11,10 @@ import com.subscribe.nativebridge.event.EventHandlerBase
 /**
  * Created on 2023/11/10
  * @author：xiezh
- * @function：启动模块
+ * @function：账号模块
  */
-@Module(name = "Startup", enableRecvThread = true, enableSendThread = true)
-object StartupBridgeModule {
+@Module(name = "Account", enableRecvThread = true, enableSendThread = true)
+object AccountBridgeModule {
 
     @Event("add")
     object EventAdd : EventHandlerBase()

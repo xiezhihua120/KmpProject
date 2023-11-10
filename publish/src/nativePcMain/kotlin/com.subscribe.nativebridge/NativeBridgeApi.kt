@@ -1,8 +1,7 @@
-package com.subscribe.nativebridge.bridge
+package com.subscribe.nativebridge
 
-import com.subscribe.nativebridge.BridgeCenter
 import com.subscribe.nativebridge.method.MethodHandler
-import com.subscribe.nativebridge.module.JSBridgeModuleFactory
+import com.subscribe.nativebridge.modules.JSBridgeModuleFactory
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
 import kotlinx.cinterop.ByteVar
@@ -38,10 +37,10 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
 
     init {
         synchronized(this) {
-            println("${TAG}: NativeBridgeApi init")
+            println("$TAG: NativeBridgeApi init")
             JSBridgeModuleFactory.initModules()
-            this.initMethodReturn()
-            this.initEventSend()
+            initMethodReturn()
+            initEventSend()
         }
     }
 
@@ -50,7 +49,7 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
      */
     override fun registerMethodCallback(callback: MethodCallbackPtr) {
         synchronized(this) {
-            println("${TAG}: registerMethodCallback")
+            println("$TAG: registerMethodCallback")
             methodCallback.update {
                 { reqId, module, method, pbBytes, size ->
                     callback(reqId, module, method, pbBytes, size)
@@ -64,7 +63,7 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
      */
     override fun registerEventCallback(callback: EventCallbackPtr) {
         synchronized(this) {
-            println("${TAG}: registerEventCallback")
+            println("$TAG: registerEventCallback")
             eventCallback.update {
                 { module, method, pbBytes, size ->
                     callback(module, method, pbBytes, size)
@@ -84,7 +83,7 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
         size: Int
     ) {
         if (DEBUG) {
-            println("${TAG}: sendJsRequest: $reqId, $module, $method, $size")
+            println("$TAG: sendJsRequest: $reqId, $module, $method, $size")
         }
         val bridgeModule = JSBridgeModuleFactory.getModule(module)
         val methodHandler = bridgeModule.getMethodHandler(method)

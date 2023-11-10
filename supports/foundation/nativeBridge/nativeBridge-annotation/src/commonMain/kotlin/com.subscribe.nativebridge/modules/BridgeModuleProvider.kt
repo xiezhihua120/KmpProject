@@ -1,4 +1,4 @@
-package com.subscribe.nativebridge.module
+package com.subscribe.nativebridge.modules
 
 /**
  * Created on 2023/9/25

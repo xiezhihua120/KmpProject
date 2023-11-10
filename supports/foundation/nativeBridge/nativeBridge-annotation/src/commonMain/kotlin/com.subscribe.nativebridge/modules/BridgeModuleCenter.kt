@@ -1,6 +1,6 @@
-package com.subscribe.nativebridge.module
+package com.subscribe.nativebridge.modules
 
-import com.subscribe.nativebridge.module.impl.BridgeModuleError
+import com.subscribe.nativebridge.modules.impl.BridgeModuleError
 
 /**
  * Created on 2023/11/10

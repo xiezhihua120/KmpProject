@@ -1,4 +1,4 @@
-package com.subscribe.nativebridge.module
+package com.subscribe.nativebridge.modules
 
 import com.subscribe.nativebridge.event.EventHandlerBase
 import com.subscribe.nativebridge.event.EventHandlerError

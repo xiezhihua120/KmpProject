@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalForeignApi::class)
 
-package com.subscribe.nativebridge.bridge
+package com.subscribe.nativebridge
 
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CFunction

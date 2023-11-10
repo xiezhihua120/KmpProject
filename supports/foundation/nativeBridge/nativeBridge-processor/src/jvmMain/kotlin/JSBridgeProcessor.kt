@@ -26,10 +26,10 @@ import com.subscribe.nativebridge.annotation.Param
 import com.subscribe.nativebridge.annotation.Return
 import com.subscribe.nativebridge.event.EventHandlerBase
 import com.subscribe.nativebridge.method.MethodHandlerBase
-import com.subscribe.nativebridge.module.BridgeModule
-import com.subscribe.nativebridge.module.BridgeModuleCenter
-import com.subscribe.nativebridge.module.BridgeModuleProvider
-import com.subscribe.nativebridge.module.impl.BridgeModuleError
+import com.subscribe.nativebridge.modules.BridgeModule
+import com.subscribe.nativebridge.modules.BridgeModuleCenter
+import com.subscribe.nativebridge.modules.BridgeModuleProvider
+import com.subscribe.nativebridge.modules.impl.BridgeModuleError
 
 
 class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) :

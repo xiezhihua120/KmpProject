@@ -1,10 +1,10 @@
-package com.subscribe.nativebridge.module.impl
+package com.subscribe.nativebridge.modules.impl
 
 import com.subscribe.nativebridge.event.EventHandlerBase
 import com.subscribe.nativebridge.event.EventHandlerError
 import com.subscribe.nativebridge.method.MethodHandlerBase
 import com.subscribe.nativebridge.method.MethodHandlerError
-import com.subscribe.nativebridge.module.BridgeModule
+import com.subscribe.nativebridge.modules.BridgeModule
 
 /**
  * Created on 2023/9/25
