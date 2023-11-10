@@ -24,12 +24,12 @@ object StartupBridgeModule {
 
     @Method("init")
     fun init(@Param param: String, @Return methodReturn: MethodReturn<Any?>) {
-
+        EventAdd.sendEvent(null)
     }
 
     @Method("release")
     fun release(@Param param: Any?, @Return methodReturn: MethodReturn<String>) {
-
+        EventRemove.sendEvent(Any())
     }
 
 }

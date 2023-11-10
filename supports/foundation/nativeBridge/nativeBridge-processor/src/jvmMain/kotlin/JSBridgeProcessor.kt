@@ -212,12 +212,12 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
         initModule.addCode(
             """
                                 |// Method: ${jsMethod.name}
-                                |${BridgeModule::methodHandlers.name}["${jsMethod.name}"] = object: MethodHandlerBase() {
-                                |    override fun handle(reqId: String, module: String, method: String, params: ByteArray) {
+                                |${BridgeModule::methodHandlers.name}["${jsMethod.name}"] = object: ${MethodHandlerBase::class.simpleName}() {
+                                |    override fun ${MethodHandlerBase::handle.name}(reqId: String, module: String, method: String, params: ByteArray) {
                                 |        val req = params.fromPBArray<${jsParamType}>()
                                 |        $ksClass.${kfun.simpleName.getShortName()}(req, object : $jsReturnType<${jsReturnGenericType}> {
                                 |           override fun invoke(result: ${jsReturnGenericType}) {
-                                |               onMethodReturn(reqId, module, method, result.toPBArray())
+                                |               ${MethodHandlerBase::onMethodReturn.name}(reqId, module, method, result.toPBArray())
                                 |           }
                                 |        })
                                 |    }
