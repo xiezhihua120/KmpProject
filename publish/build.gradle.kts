@@ -48,6 +48,8 @@ kotlin {
         // 共享代码
         val commonMain by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation(project(":nativeBridge-annotation"))
                 api(project(":welcome"))
             }
