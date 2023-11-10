@@ -1,6 +1,6 @@
-import com.subscribe.nativebridge.annotation.JSBridgeModule
-import com.subscribe.nativebridge.annotation.JSBridgeEvent
-import com.subscribe.nativebridge.annotation.JSBridgeMethod
+import com.subscribe.nativebridge.annotation.BridgeModule
+import com.subscribe.nativebridge.annotation.BridgeEvent
+import com.subscribe.nativebridge.annotation.BridgeMethod
 import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.getAnnotationsByType
 import com.google.devtools.ksp.processing.CodeGenerator
@@ -65,7 +65,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
         if (invoked) return emptyList()
         invoked = true
 
-        val symbols = resolver.getSymbolsWithAnnotation(JSBridgeModule::class.qualifiedName!!)
+        val symbols = resolver.getSymbolsWithAnnotation(BridgeModule::class.qualifiedName!!)
         logger.warn(symbols.toList().toString())
         symbols.filter { it is KSClassDeclaration }.map { it to (it as KSClassDeclaration) }
             .forEach { entry ->
@@ -77,7 +77,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 /**
                  * 模块名称
                  */
-                val jsModule = ksClass.getAnnotationsByType(JSBridgeModule::class).firstOrNull()
+                val jsModule = ksClass.getAnnotationsByType(BridgeModule::class).firstOrNull()
                     ?: return@forEach
                 logger.warn("jsModule: [${jsModule.name}]")
                 val fileSpec = FileSpec.builder(PKG_NAME, "${MODULE_PREFIX}${jsModule.name}")
@@ -102,7 +102,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
 
                 // 模块方法
                 ksClassDec.declarations.filter { it is KSFunctionDeclaration }.forEach { kfun ->
-                    val jsMethod = kfun.getAnnotationsByType(JSBridgeMethod::class).firstOrNull()
+                    val jsMethod = kfun.getAnnotationsByType(BridgeMethod::class).firstOrNull()
                         ?: return@forEach
                     logger.warn("jsMethod: [${jsModule.name}-${jsMethod.name}]")
                     initModule.addCode(
@@ -122,7 +122,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
 
                 // 模块事件
                 ksClassDec.declarations.filter { it is KSClassDeclaration }.forEach { eventClass ->
-                    val jsEvent = eventClass.getAnnotationsByType(JSBridgeEvent::class).firstOrNull()
+                    val jsEvent = eventClass.getAnnotationsByType(BridgeEvent::class).firstOrNull()
                         ?: return@forEach
                     logger.warn("jsEvent: [${jsModule.name}-${jsEvent.name}]")
                     initModule.addCode(
