@@ -20,45 +20,50 @@ import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asTypeName
+import com.subscribe.nativebridge.event.EventHandlerBase
+import com.subscribe.nativebridge.method.MethodHandlerBase
+import com.subscribe.nativebridge.module.BridgeModule
+import com.subscribe.nativebridge.module.BridgeModuleCenter
+import com.subscribe.nativebridge.module.BridgeModuleProvider
+import com.subscribe.nativebridge.module.impl.BridgeModuleError
 
 
 class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) :
     SymbolProcessor {
 
     companion object {
-        const val PKG_NAME = "com.subscribe.status.jsbridge.annotations"
         const val MODULE_PREFIX = "JSBridgeModule"
         const val FACTORY_NAME = "JSBridgeModuleFactory"
 
-        const val MODULE_NAME_FIELD = "module"
-        const val MODULE_METHOD_HANDLERS_FILED = "methodHandlers"
-        const val MODULE_EVENT_HANDLERS_FILED = "eventHandlers"
-        const val MODULE_INIT_METHOD = "initModule"
-        const val FACTORY_MODULES_FIELD = "modules"
-        const val FACTORY_INIT_METHOD = "initModules"
-        const val FACTORY_GET_METHOD = "getModule"
+//        const val MODULE_NAME_FIELD = "module"
+//        const val MODULE_METHOD_HANDLERS_FILED = "methodHandlers"
+//        const val MODULE_EVENT_HANDLERS_FILED = "eventHandlers"
+//        const val MODULE_INIT_METHOD = "initModule"
+//        const val FACTORY_MODULES_FIELD = "modules"
+//        const val FACTORY_INIT_METHOD = "initModules"
+//        const val FACTORY_GET_METHOD = "getModule"
 
-        val BRIDGE_PROVIDER_CLASS =
-            ClassName("com.subscribe.multiplatform.jsbrige", "JSBridgeModuleProvider")
-        val BRIDGE_MODULE_CLASS = ClassName("com.subscribe.multiplatform.jsbrige.module", "BridgeModule")
-        val STRING_CLASS = ClassName("kotlin", "String")
+//        val BRIDGE_PROVIDER_CLASS =
+//            ClassName("com.subscribe.multiplatform.jsbrige", "JSBridgeModuleProvider")
+//        val BRIDGE_MODULE_CLASS = ClassName("com.subscribe.multiplatform.jsbrige.module", "BridgeModule")
+//        val STRING_CLASS = ClassName("kotlin", "String")
         val MUTABLE_MAP_CLASS = ClassName("kotlin.collections", "MutableMap")
-        val METHOD_HANDLER_CLASS =
-            ClassName("com.subscribe.multiplatform.jsbrige.method", "MethodHandler")
-        val EVENT_HANDLER_CLASS =
-            ClassName("com.subscribe.multiplatform.jsbrige.event", "EventHandlerBase")
-        val JS_CALLBACK_CLASS = ClassName("com.subscribe.multiplatform.jsbrige", "JsCallbackInvoker")
-        val MUTABLE_MAP_METHODS_CLASS =
-            MUTABLE_MAP_CLASS.parameterizedBy(STRING_CLASS, METHOD_HANDLER_CLASS)
-        val MUTABLE_MAP_EVENTS_CLASS =
-            MUTABLE_MAP_CLASS.parameterizedBy(STRING_CLASS, EVENT_HANDLER_CLASS)
-        val MUTABLE_MAP_MODULES_CLASS =
-            MUTABLE_MAP_CLASS.parameterizedBy(STRING_CLASS, BRIDGE_MODULE_CLASS)
+//        val METHOD_HANDLER_CLASS =
+//            ClassName("com.subscribe.multiplatform.jsbrige.method", "MethodHandler")
+//        val EVENT_HANDLER_CLASS =
+//            ClassName("com.subscribe.multiplatform.jsbrige.event", "EventHandlerBase")
+//        val JS_CALLBACK_CLASS = ClassName("com.subscribe.multiplatform.jsbrige", "JsCallbackInvoker")
+//        val MUTABLE_MAP_METHODS_CLASS = MutableMap::class.parameterizedBy(String::class, MethodHandlerBase::class)
+//        val MUTABLE_MAP_EVENTS_CLASS =
+//            MUTABLE_MAP_CLASS.parameterizedBy(STRING_CLASS, EVENT_HANDLER_CLASS)
+//        val MUTABLE_MAP_MODULES_CLASS =
+//            MUTABLE_MAP_CLASS.parameterizedBy(STRING_CLASS, BRIDGE_MODULE_CLASS)
     }
 
     private var invoked = false
     private var moduleFileSpecList: MutableList<FileSpec> = mutableListOf()
-
+    private var pkgName = BridgeModuleCenter::class.java.packageName
 
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
@@ -80,25 +85,32 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 val jsModule = ksClass.getAnnotationsByType(Module::class).firstOrNull()
                     ?: return@forEach
                 logger.warn("jsModule: [${jsModule.name}]")
-                val fileSpec = FileSpec.builder(PKG_NAME, "${MODULE_PREFIX}${jsModule.name}")
+                val fileSpec = FileSpec.builder(this.pkgName, "${MODULE_PREFIX}${jsModule.name}")
                     .addImport(pkgName, className)
-                    .addImport(JS_CALLBACK_CLASS.packageName, JS_CALLBACK_CLASS.simpleName)
                 val classSpec = TypeSpec.objectBuilder("${MODULE_PREFIX}${jsModule.name}")
-                    .addModifiers(KModifier.INTERNAL).addSuperinterface(BRIDGE_MODULE_CLASS)
+                    .addModifiers(KModifier.INTERNAL).addSuperinterface(BridgeModule::class)
                 // 属性module
                 val module =
-                    PropertySpec.builder(MODULE_NAME_FIELD, STRING_CLASS, KModifier.OVERRIDE)
+                    PropertySpec.builder(BridgeModule::module.name, String::class, KModifier.OVERRIDE)
                         .initializer("%S", jsModule.name)
+                // 属性enableSendThread
+                val enableSend =
+                    PropertySpec.builder(BridgeModule::enableSendThread.name, Boolean::class, KModifier.OVERRIDE)
+                        .initializer("${jsModule.enableSendThread}")
+                // 属性enableRecvThread
+                val enableRecv =PropertySpec.builder(BridgeModule::enableRecvThread.name, Boolean::class, KModifier.OVERRIDE)
+                    .initializer("${jsModule.enableRecvThread}")
                 // 属性methodHandlers
                 val methodHandlers = PropertySpec.builder(
-                    MODULE_METHOD_HANDLERS_FILED, MUTABLE_MAP_METHODS_CLASS, KModifier.OVERRIDE
+                    BridgeModule::methodHandlers.name, MUTABLE_MAP_CLASS.parameterizedBy(String::class.asTypeName(), MethodHandlerBase::class.asTypeName()), KModifier.OVERRIDE
                 ).initializer("mutableMapOf()")
                 // 属性methodHandlers
                 val eventHandlers = PropertySpec.builder(
-                    MODULE_EVENT_HANDLERS_FILED, MUTABLE_MAP_EVENTS_CLASS, KModifier.OVERRIDE
+                    BridgeModule::eventHandlers.name, MUTABLE_MAP_CLASS.parameterizedBy(String::class.asTypeName(), EventHandlerBase::class.asTypeName()), KModifier.OVERRIDE
                 ).initializer("mutableMapOf()")
                 // 方法initModule
-                val initModule = FunSpec.builder(MODULE_INIT_METHOD)
+                val initModule = FunSpec.builder(BridgeModule::initModule.name)
+                    .addModifiers(KModifier.OVERRIDE)
 
                 // 模块方法
                 ksClassDec.declarations.filter { it is KSFunctionDeclaration }.forEach { kfun ->
@@ -108,8 +120,8 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                     initModule.addCode(
                         """
                         |// Method: ${jsMethod.name}
-                        |methodHandlers["${jsMethod.name}"] = object: MethodHandler() {
-                        |    override fun handle(reqId: String, module: String, params: ByteArray, callback: JsCallbackInvoker?) {
+                        |${BridgeModule::methodHandlers.name}["${jsMethod.name}"] = object: MethodHandlerBase() {
+                        |    override fun handle(reqId: String, module: String, method: String, params: ByteArray) {
                         |        $ksClass.${kfun.simpleName.getShortName()}(params)  {
                         |            this.sendCallback(reqId, it, callback)
                         |        }
@@ -145,6 +157,8 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 )
 
                 classSpec.addProperty(module.build())
+                classSpec.addProperty(enableSend.build())
+                classSpec.addProperty(enableRecv.build())
                 classSpec.addProperty(methodHandlers.build())
                 classSpec.addProperty(eventHandlers.build())
                 classSpec.addFunction(initModule.build())
@@ -173,33 +187,38 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
     }
 
     private fun getModuleFactory(moduleFileSpecList: MutableList<FileSpec>): FileSpec.Builder {
-        val fileSpec = FileSpec.builder(PKG_NAME, FACTORY_NAME)
+        val fileSpec = FileSpec.builder(pkgName, FACTORY_NAME)
+            .addImport(BridgeModuleError.javaClass.kotlin, "")
         // 类
         val classSpec =
             TypeSpec.objectBuilder(FACTORY_NAME)
                 .addModifiers(KModifier.INTERNAL)
-                .addSuperinterface(BRIDGE_PROVIDER_CLASS)
+                .addSuperinterface(BridgeModuleProvider::class.java)
 
         // 属性
         val modules = PropertySpec.builder(
-            FACTORY_MODULES_FIELD, MUTABLE_MAP_MODULES_CLASS, KModifier.PRIVATE
+            BridgeModuleProvider::modules.name, MUTABLE_MAP_CLASS.parameterizedBy(String::class.asTypeName(), BridgeModule::class.asTypeName()), KModifier.OVERRIDE
         ).initializer("mutableMapOf()")
 
         // 方法
-        val initModules = FunSpec.builder(FACTORY_INIT_METHOD)
+        val initModules = FunSpec.builder(BridgeModuleProvider::initModules.name)
+            .addModifiers(KModifier.OVERRIDE)
         moduleFileSpecList.forEach {
-            initModules.addStatement("${it.name}.${MODULE_INIT_METHOD}()")
+            initModules.addStatement("${it.name}.${BridgeModule::initModule.name}()")
         }
         moduleFileSpecList.forEach {
-            initModules.addStatement("${FACTORY_MODULES_FIELD}[${it.name}.${MODULE_NAME_FIELD}] = ${it.name}")
+            initModules.addStatement("${BridgeModuleProvider::modules.name}[${it.name}.${BridgeModule::module.name}] = ${it.name}")
         }
 
         // 方法
-        val getModule = FunSpec.builder(FACTORY_GET_METHOD)
+
+        val moduleNull = ClassName(BridgeModule::class.java.packageName, BridgeModule::class.java.simpleName)
+        val getModule = FunSpec.builder(BridgeModuleProvider::getModule.name)
             .addModifiers(KModifier.OVERRIDE)
-            .addParameter(MODULE_NAME_FIELD, String::class)
-            .returns(BRIDGE_MODULE_CLASS.copy(nullable = true))
-            .addStatement("return modules[${MODULE_NAME_FIELD}]")
+            .addParameter(BridgeModule::module.name, String::class)
+            .returns(BridgeModule::class)
+            .returns(moduleNull)
+            .addStatement("return ${BridgeModuleProvider::modules.name}[${BridgeModule::module.name}] ?: ${BridgeModuleError::class.simpleName}")
 
         classSpec.addProperty(modules.build())
         classSpec.addFunction(initModules.build())

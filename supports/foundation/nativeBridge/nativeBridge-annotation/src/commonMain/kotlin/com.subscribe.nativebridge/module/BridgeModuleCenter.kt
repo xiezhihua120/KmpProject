@@ -13,8 +13,8 @@ object BridgeModuleCenter {
     /**
      * 模块初始化
      */
-    fun init() {
-        JSBridgeModuleFactory.initModules()
+    fun initModules() {
+        // JSBridgeModuleFactory.initModules()
     }
 
     /**
@@ -23,6 +23,7 @@ object BridgeModuleCenter {
      * @return 具体模块
      */
     fun getModule(module: String): BridgeModule {
-        return JSBridgeModuleFactory.getModule(module) ?: ErrorModule
+        // return JSBridgeModuleFactory.getModule(module) ?: ErrorModule
+        return ErrorModule
     }
 }

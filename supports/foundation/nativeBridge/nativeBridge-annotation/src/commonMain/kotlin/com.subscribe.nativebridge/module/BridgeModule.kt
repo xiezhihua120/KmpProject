@@ -38,6 +38,11 @@ interface BridgeModule {
     val eventHandlers: MutableMap<String, EventHandlerBase>
 
     /**
+     * 模块初始化
+     */
+    fun initModule()
+
+    /**
      * 获取方法处理器
      */
     fun getMethodHandler(method: String): MethodHandlerBase {

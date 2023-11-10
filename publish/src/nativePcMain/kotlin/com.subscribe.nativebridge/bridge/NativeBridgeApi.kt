@@ -2,6 +2,7 @@ package com.subscribe.nativebridge.bridge
 
 import com.subscribe.nativebridge.BridgeCenter
 import com.subscribe.nativebridge.method.MethodHandler
+import com.subscribe.nativebridge.module.JSBridgeModuleFactory
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
 import kotlinx.cinterop.ByteVar
@@ -38,6 +39,7 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
     init {
         synchronized(this) {
             println("${TAG}: NativeBridgeApi init")
+            JSBridgeModuleFactory.initModules()
             this.initMethodReturn()
             this.initEventSend()
         }
@@ -84,7 +86,7 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
         if (DEBUG) {
             println("${TAG}: sendJsRequest: $reqId, $module, $method, $size")
         }
-        val bridgeModule = BridgeCenter.getModule(module)
+        val bridgeModule = JSBridgeModuleFactory.getModule(module)
         val methodHandler = bridgeModule.getMethodHandler(method)
 
         val params = pbBytes?.readBytes(size) ?: ByteArray(0)
@@ -99,7 +101,7 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
             if (DEBUG) {
                 println("${MethodHandler.TAG} method return: $reqId, $module, $method, ${data.size}")
             }
-            val bridgeModule = BridgeCenter.getModule(module)
+            val bridgeModule = JSBridgeModuleFactory.getModule(module)
             val scope = if (bridgeModule.enableSendThread) sendScope else null
             launchCoroutine(scope) {
                 memScoped {
@@ -120,7 +122,7 @@ object NativeBridgeApi : NativeBridge, SynchronizedObject() {
             if (DEBUG) {
                 println("${MethodHandler.TAG} method return: $reqId, $module, $method, ${data.size}")
             }
-            val bridgeModule = BridgeCenter.getModule(module)
+            val bridgeModule = JSBridgeModuleFactory.getModule(module)
             val scope = if (bridgeModule.enableSendThread) sendScope else null
             launchCoroutine(scope) {
                 memScoped {

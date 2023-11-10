@@ -18,6 +18,9 @@ object BridgeModuleError : BridgeModule {
     override val enableRecvThread: Boolean = false
     override val methodHandlers: MutableMap<String, MethodHandlerBase> = mutableMapOf()
     override val eventHandlers: MutableMap<String, EventHandlerBase> = mutableMapOf()
+    override fun initModule() {
+        // empty impl
+    }
 
     override fun getMethodHandler(method: String): MethodHandlerBase {
         return MethodHandlerError

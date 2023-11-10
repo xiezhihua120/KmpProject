@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("com.google.devtools.ksp")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -72,6 +73,7 @@ kotlin {
 
         // native代码
         val nativePcMain by getting {
+            kotlin.srcDir("build/generated/ksp/nativePc/nativePcMain/kotlin")
             dependsOn(commonMain)
         }
     }
@@ -83,4 +85,9 @@ android {
     defaultConfig {
         minSdk = 21
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", project(":nativeBridge-processor"))
+    add("kspNativePc", project(":nativeBridge-processor"))
 }

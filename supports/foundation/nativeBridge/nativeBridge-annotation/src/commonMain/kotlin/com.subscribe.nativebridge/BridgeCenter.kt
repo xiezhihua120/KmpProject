@@ -32,13 +32,6 @@ object BridgeCenter: SynchronizedObject() {
         }
     }
 
-    /**
-     * 获取处理模块
-     */
-    fun getModule(module: String): BridgeModule {
-        return BridgeModuleCenter.getModule(module)
-    }
-
     internal fun onMethodReturn(reqId: String, module: String, method: String, data: ByteArray) {
         methodListener?.invoke(reqId, module, method, data)
     }
