@@ -35,7 +35,7 @@ interface BridgeModule {
     /**
      * 事件处理器
      */
-    val eventHandlers: MutableMap<String, EventHandlerBase>
+    val eventHandlers: MutableMap<String, EventHandlerBase<*>>
 
     /**
      * 模块初始化
@@ -52,7 +52,7 @@ interface BridgeModule {
     /**
      * 获取事件处理器
      */
-    fun getEventHandler(method: String): EventHandlerBase {
+    fun getEventHandler(method: String): EventHandlerBase<*> {
         return eventHandlers[method] ?: EventHandlerError
     }
 }

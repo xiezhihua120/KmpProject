@@ -5,6 +5,6 @@ package com.subscribe.nativebridge.event
  * @author：xiezh
  * @function：错误处理
  */
-object EventHandlerError : EventHandlerBase() {
+object EventHandlerError : EventHandlerBase<Any>() {
     override val method: String = "innerErrorEvent"
 }

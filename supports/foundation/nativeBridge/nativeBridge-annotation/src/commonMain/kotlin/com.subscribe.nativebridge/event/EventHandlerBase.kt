@@ -7,7 +7,7 @@ import com.subscribe.nativebridge.BridgeCenter
  * @author：xiezh
  * @function：事件发送器
  */
-open class EventHandlerBase : EventHandler {
+open class EventHandlerBase<T> : EventHandler {
 
     companion object {
         private const val TAG = "EventHandler"
@@ -18,12 +18,12 @@ open class EventHandlerBase : EventHandler {
     override val module: String get() = _module
     override val method: String get() = _method
 
-    fun setModule(module: String): EventHandlerBase {
+    fun setModule(module: String): EventHandlerBase<T> {
         this._module = module
         return this
     }
 
-    fun setMethod(method: String): EventHandlerBase {
+    fun setMethod(method: String): EventHandlerBase<T> {
         this._method = method
         return this
     }

@@ -10,13 +10,18 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
+import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.DYNAMIC
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.TypeVariableName
+import com.squareup.kotlinpoet.WildcardTypeName
 import com.squareup.kotlinpoet.asTypeName
 import com.subscribe.nativebridge.annotation.Event
 import com.subscribe.nativebridge.annotation.Method
@@ -39,6 +44,12 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
         const val MODULE_PREFIX = "JSBridgeModule"
         const val FACTORY_NAME = "JSBridgeModuleFactory"
         private val MUTABLE_MAP_CLASS = ClassName("kotlin.collections", "MutableMap")
+        private val EVENT_HANDLE_CLASS = ClassName(
+            EventHandlerBase::class.java.packageName,
+            "${EventHandlerBase::class.simpleName}"
+        )
+        private val EVENT_HANDLE_GENERIC_CLASS =
+            EVENT_HANDLE_CLASS.parameterizedBy(TypeVariableName.invoke("*"))
     }
 
     private var invoked = false
@@ -87,9 +98,14 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 val methodHandlers = PropertySpec.builder(
                     BridgeModule::methodHandlers.name, MUTABLE_MAP_CLASS.parameterizedBy(String::class.asTypeName(), MethodHandlerBase::class.asTypeName()), KModifier.OVERRIDE
                 ).initializer("mutableMapOf()")
-                // 属性methodHandlers
+                // 属性eventHandlers
                 val eventHandlers = PropertySpec.builder(
-                    BridgeModule::eventHandlers.name, MUTABLE_MAP_CLASS.parameterizedBy(String::class.asTypeName(), EventHandlerBase::class.asTypeName()), KModifier.OVERRIDE
+                    BridgeModule::eventHandlers.name,
+                    MUTABLE_MAP_CLASS.parameterizedBy(
+                        String::class.asTypeName(),
+                        EVENT_HANDLE_GENERIC_CLASS
+                    ),
+                    KModifier.OVERRIDE
                 ).initializer("mutableMapOf()")
                 // 方法initModule
                 val initModule = FunSpec.builder(BridgeModule::initModule.name)

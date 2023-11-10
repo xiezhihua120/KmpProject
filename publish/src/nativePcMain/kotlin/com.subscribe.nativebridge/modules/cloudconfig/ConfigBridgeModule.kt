@@ -17,10 +17,10 @@ import com.subscribe.nativebridge.event.EventHandlerBase
 object ConfigBridgeModule {
 
     @Event("add")
-    object EventAdd : EventHandlerBase()
+    object EventAdd : EventHandlerBase<String?>()
 
     @Event("remove")
-    object EventRemove : EventHandlerBase()
+    object EventRemove : EventHandlerBase<Any?>()
 
     @Method("init")
     fun init(@Param param: String, @Return methodReturn: MethodReturn<Any?>) {
