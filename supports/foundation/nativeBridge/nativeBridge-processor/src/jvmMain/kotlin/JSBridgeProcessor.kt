@@ -9,19 +9,17 @@ import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
-import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.DYNAMIC
+import com.squareup.kotlinpoet.DelicateKotlinPoetApi
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
-import com.squareup.kotlinpoet.STAR
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.TypeVariableName
-import com.squareup.kotlinpoet.WildcardTypeName
 import com.squareup.kotlinpoet.asTypeName
 import com.subscribe.nativebridge.annotation.Event
 import com.subscribe.nativebridge.annotation.Method
@@ -62,7 +60,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
         invoked = true
 
         val symbols = resolver.getSymbolsWithAnnotation(Module::class.qualifiedName!!)
-        logger.warn(symbols.toList().toString())
+        logger.info(symbols.toList().toString())
         symbols.filter { it is KSClassDeclaration }.map { it to (it as KSClassDeclaration) }
             .forEach { entry ->
                 val ksClass = entry.first
@@ -75,7 +73,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                  */
                 val jsModule = ksClass.getAnnotationsByType(Module::class).firstOrNull()
                     ?: return@forEach
-                logger.warn("jsModule: [${jsModule.name}]")
+                logger.info("jsModule: [${jsModule.name}]")
                 val fileSpec = FileSpec.builder(this.pkgName, "${MODULE_PREFIX}${jsModule.name}")
                     .addImport(pkgName, className)
                     .addImport(MethodReturn::class.java.kotlin, "")
@@ -102,8 +100,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 val eventHandlers = PropertySpec.builder(
                     BridgeModule::eventHandlers.name,
                     MUTABLE_MAP_CLASS.parameterizedBy(
-                        String::class.asTypeName(),
-                        EVENT_HANDLE_GENERIC_CLASS
+                        String::class.asTypeName(), EVENT_HANDLE_GENERIC_CLASS
                     ),
                     KModifier.OVERRIDE
                 ).initializer("mutableMapOf()")
@@ -114,47 +111,13 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 // 模块方法
                 ksClassDec.declarations.filter { it is KSFunctionDeclaration }
                     .map { it as KSFunctionDeclaration }.forEach { kfun ->
-                        val jsMethod = kfun.getAnnotationsByType(Method::class).firstOrNull()
-                            ?: return@forEach
-
-                        val jsParam = kfun.parameters.find { it.getAnnotationsByType(Param::class).any() }
-                        val jsParamType = jsParam?.type?.resolve()
-
-                        val jsReturn = kfun.parameters.find { it.getAnnotationsByType(Return::class).any() }
-                        val jsReturnType = jsReturn?.type?.resolve()?.declaration?.simpleName?.asString()
-                        val jsReturnGenericType = jsReturn?.type?.element?.typeArguments?.firstOrNull()?.type?.resolve()
-
-                        logger.warn("jsMethod: [${jsModule.name}-${jsMethod.name} -${jsReturn?.type?.resolve()?.declaration?.typeParameters?.joinToString { it.toString() }} ]")
-                        initModule.addCode(
-                            """
-                            |// Method: ${jsMethod.name}
-                            |${BridgeModule::methodHandlers.name}["${jsMethod.name}"] = object: MethodHandlerBase() {
-                            |    override fun handle(reqId: String, module: String, method: String, params: ByteArray) {
-                            |        val req = params.fromPBArray<${jsParamType}>()
-                            |        $ksClass.${kfun.simpleName.getShortName()}(req, object : $jsReturnType<${jsReturnGenericType}> {
-                            |           override fun invoke(result: ${jsReturnGenericType}) {
-                            |               onMethodReturn(reqId, module, method, result.toPBArray())
-                            |           }
-                            |        })
-                            |    }
-                            |}
-                            |
-                            |""".trimMargin()
-                    )
-                }
+                        generateMethodCode(kfun, jsModule, initModule, ksClass)
+                    }
 
                 // 模块事件
+                val eventFunSpecList: MutableList<FunSpec.Builder> = mutableListOf()
                 ksClassDec.declarations.filter { it is KSClassDeclaration }.forEach { eventClass ->
-                    val jsEvent = eventClass.getAnnotationsByType(Event::class).firstOrNull()
-                        ?: return@forEach
-                    logger.warn("jsEvent: [${jsModule.name}-${jsEvent.name}]")
-                    initModule.addCode(
-                        """
-                        |// Event: ${jsEvent.name}
-                        |eventHandlers["${jsEvent.name}"] = $ksClass.${eventClass.simpleName.getShortName()}
-                        |
-                        |""".trimMargin()
-                    )
+                    generateEventCode(eventClass, jsModule, initModule, ksClass, eventFunSpecList)
                 }
 
                 // 初始化
@@ -174,9 +137,93 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 classSpec.addProperty(eventHandlers.build())
                 classSpec.addFunction(initModule.build())
                 fileSpec.addType(classSpec.build())
+
+                eventFunSpecList.forEach {
+                    fileSpec.addFunction(it.build())
+                }
                 moduleFileSpecList.add(fileSpec.build())
             }
         return emptyList()
+    }
+
+    @OptIn(KspExperimental::class)
+    private fun generateEventCode(
+        eventClass: KSDeclaration,
+        jsModule: Module,
+        initModule: FunSpec.Builder,
+        ksClass: KSAnnotated,
+        eventFunSpecList: MutableList<FunSpec.Builder>
+    ) {
+        val jsEvent = eventClass.getAnnotationsByType(Event::class).firstOrNull()
+            ?: return
+        val jsEventGenericType =
+            (eventClass as KSClassDeclaration).superTypes.firstOrNull()?.element?.typeArguments?.firstOrNull()?.type?.resolve()
+
+        logger.info("jsEvent: [${jsModule.name}-${jsEvent.name}]")
+        initModule.addCode(
+            """
+                                |// Event: ${jsEvent.name}
+                                |eventHandlers["${jsEvent.name}"] = $ksClass.${eventClass.simpleName.getShortName()}
+                                |
+                                |""".trimMargin()
+        )
+
+        // 事件扩展方法
+        val eventClassName = ClassName(
+            eventClass.packageName.asString(),
+            "$ksClass.${eventClass.simpleName.getShortName()}"
+        )
+        val eventGenericName = ClassName(
+            jsEventGenericType!!.declaration.packageName.asString(),
+            jsEventGenericType.declaration.simpleName.getShortName()
+        ).copy(nullable = jsEventGenericType.isMarkedNullable)
+
+        val sendMethod =
+            FunSpec.builder("sendEvent")
+                .addParameter("event", eventGenericName)
+                .receiver(eventClassName)
+        sendMethod.addCode(
+            """
+                            |this.send("", module, method, event.toPBArray()) 
+                            |""".trimMargin()
+        )
+        eventFunSpecList.add(sendMethod)
+    }
+
+    @OptIn(KspExperimental::class)
+    private fun generateMethodCode(
+        kfun: KSFunctionDeclaration,
+        jsModule: Module,
+        initModule: FunSpec.Builder,
+        ksClass: KSAnnotated
+    ) {
+        val jsMethod = kfun.getAnnotationsByType(Method::class).firstOrNull() ?: return
+
+        val jsParam = kfun.parameters.find { it.getAnnotationsByType(Param::class).any() }
+        val jsParamType = jsParam?.type?.resolve()
+
+        val jsReturn = kfun.parameters.find { it.getAnnotationsByType(Return::class).any() }
+        val jsReturnType = jsReturn?.type?.resolve()?.declaration?.simpleName?.asString()
+        val jsReturnGenericType =
+            jsReturn?.type?.element?.typeArguments?.firstOrNull()?.type?.resolve()
+
+        logger.info("jsMethod: [${jsModule.name}-${jsMethod.name}]")
+        initModule.addCode(
+            """
+                                |// Method: ${jsMethod.name}
+                                |${BridgeModule::methodHandlers.name}["${jsMethod.name}"] = object: MethodHandlerBase() {
+                                |    override fun handle(reqId: String, module: String, method: String, params: ByteArray) {
+                                |        val req = params.fromPBArray<${jsParamType}>()
+                                |        $ksClass.${kfun.simpleName.getShortName()}(req, object : $jsReturnType<${jsReturnGenericType}> {
+                                |           override fun invoke(result: ${jsReturnGenericType}) {
+                                |               onMethodReturn(reqId, module, method, result.toPBArray())
+                                |           }
+                                |        })
+                                |    }
+                                |}
+                                |
+                                |""".trimMargin()
+        )
     }
 
     override fun finish() {
@@ -197,6 +244,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
         }
     }
 
+    @OptIn(DelicateKotlinPoetApi::class)
     private fun getModuleFactory(moduleFileSpecList: MutableList<FileSpec>): FileSpec.Builder {
         val fileSpec = FileSpec.builder(pkgName, FACTORY_NAME)
             .addImport(BridgeModuleError.javaClass.kotlin, "")
