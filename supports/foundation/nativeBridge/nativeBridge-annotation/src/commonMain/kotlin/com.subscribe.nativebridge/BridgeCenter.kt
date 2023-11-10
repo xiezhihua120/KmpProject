@@ -1,5 +1,7 @@
 package com.subscribe.nativebridge
 
+import com.subscribe.nativebridge.BridgeCenter.DEBUG
+import com.subscribe.nativebridge.BridgeCenter.TAG
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
 import kotlinx.serialization.decodeFromByteArray
@@ -12,6 +14,8 @@ import kotlinx.serialization.protobuf.ProtoBuf
  * @function：桥接转化管理中心
  */
 object BridgeCenter: SynchronizedObject() {
+    const val TAG = "BridgeCenter"
+    const val DEBUG = false
     private var methodListener: MethodReturnListener? = null
     private var eventListener: EventReceiveListener? = null
 
@@ -46,8 +50,16 @@ typealias MethodReturnListener = (reqId: String, module: String, method: String,
 typealias EventReceiveListener = (reqId: String, module: String, method: String, data: ByteArray) -> Unit
 
 inline fun < reified T : Any> T?.toPBArray(): ByteArray {
-    if (this == null) return ByteArray(0)
-    return ProtoBuf.encodeToByteArray(this)
+    try {
+        if (this == null) return ByteArray(0)
+        return ProtoBuf.encodeToByteArray(this)
+    } catch (e: Throwable) {
+        if (DEBUG) {
+            println("${TAG}: NativeBridgeApi encodeToByteArray error: ${e.message}")
+        }
+    } finally {
+        return ByteArray(0)
+    }
 }
 
 inline fun <reified T : Any?> ByteArray.fromPBArray(): T {
