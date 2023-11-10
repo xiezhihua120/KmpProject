@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    kotlin("multiplatform")
+    id("com.android.library")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -48,7 +48,7 @@ kotlin {
         // 共享代码
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+                api(project(":welcome"))
             }
         }
         val commonTest by getting {
