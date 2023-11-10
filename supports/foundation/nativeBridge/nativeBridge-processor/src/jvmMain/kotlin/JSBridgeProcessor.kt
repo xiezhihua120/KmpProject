@@ -27,6 +27,7 @@ import com.subscribe.nativebridge.annotation.MethodReturn
 import com.subscribe.nativebridge.annotation.Module
 import com.subscribe.nativebridge.annotation.Param
 import com.subscribe.nativebridge.annotation.Return
+import com.subscribe.nativebridge.event.EventHandler
 import com.subscribe.nativebridge.event.EventHandlerBase
 import com.subscribe.nativebridge.method.MethodHandlerBase
 import com.subscribe.nativebridge.modules.BridgeModule
@@ -124,8 +125,8 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 initModule.addCode(
                     """
                         |
-                        |methodHandlers.forEach { it.value.setModule(module).setMethod(it.key) }
-                        |eventHandlers.forEach { it.value.setModule(module).setMethod(it.key) }
+                        |${BridgeModule::methodHandlers.name}.forEach { it.value.${MethodHandlerBase::setMethod.name}(${BridgeModule::module.name}).${MethodHandlerBase::setMethod.name}(it.key) }
+                        |${BridgeModule::eventHandlers.name}.forEach { it.value.${EventHandlerBase<*>::setMethod.name}(${BridgeModule::module.name}).${EventHandlerBase<*>::setMethod.name}(it.key) }
                         |
                         |""".trimMargin()
                 )
@@ -163,7 +164,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
         initModule.addCode(
             """
                                 |// Event: ${jsEvent.name}
-                                |eventHandlers["${jsEvent.name}"] = $ksClass.${eventClass.simpleName.getShortName()}
+                                |${BridgeModule::eventHandlers.name}["${jsEvent.name}"] = $ksClass.${eventClass.simpleName.getShortName()}
                                 |
                                 |""".trimMargin()
         )
@@ -184,7 +185,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 .receiver(eventClassName)
         sendMethod.addCode(
             """
-                            |this.send("", module, method, event.toPBArray()) 
+                            |this.${EventHandler::send.name}("", ${EventHandler::module.name}, ${EventHandler::method.name}, event.toPBArray()) 
                             |""".trimMargin()
         )
         eventFunSpecList.add(sendMethod)
