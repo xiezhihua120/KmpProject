@@ -45,10 +45,11 @@ object BridgeCenter: SynchronizedObject() {
 typealias MethodReturnListener = (reqId: String, module: String, method: String, data: ByteArray) -> Unit
 typealias EventReceiveListener = (reqId: String, module: String, method: String, data: ByteArray) -> Unit
 
-inline fun < reified T : Any> T.toPBArray(): ByteArray {
+inline fun < reified T : Any> T?.toPBArray(): ByteArray {
+    if (this == null) return ByteArray(0)
     return ProtoBuf.encodeToByteArray(this)
 }
 
-inline fun <reified T : Any> ByteArray.fromPBArray(): T {
+inline fun <reified T : Any?> ByteArray.fromPBArray(): T {
     return ProtoBuf.decodeFromByteArray(this)
 }

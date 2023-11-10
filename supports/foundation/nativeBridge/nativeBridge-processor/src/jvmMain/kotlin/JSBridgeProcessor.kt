@@ -30,6 +30,8 @@ import com.subscribe.nativebridge.module.BridgeModule
 import com.subscribe.nativebridge.module.BridgeModuleCenter
 import com.subscribe.nativebridge.module.BridgeModuleProvider
 import com.subscribe.nativebridge.module.impl.BridgeModuleError
+import com.subscribe.nativebridge.toPBArray
+import com.subscribe.nativebridge.fromPBArray
 
 
 class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) :
@@ -103,19 +105,22 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
 
                         val jsParam = kfun.parameters.find { it.getAnnotationsByType(Param::class).any() }
                         val jsParamType = jsParam?.type?.resolve()?.declaration?.simpleName?.asString()
+                        val jsParamTypeNull = jsParam?.type?.resolve()?.isMarkedNullable
+
                         val jsReturn = kfun.parameters.find { it.getAnnotationsByType(Return::class).any() }
                         val jsReturnType = jsReturn?.type?.resolve()?.declaration?.simpleName?.asString()
-                        val jsReturnPType = jsReturn?.type?.resolve()?.declaration?.typeParameters?.firstOrNull()?.simpleName?.asString()
+                        val jsReturnGenericType = jsReturn?.type?.resolve()?.declaration?.typeParameters?.firstOrNull()
+                        val jsReturnGenericTypeName = jsReturn?.type?.resolve()
 
-                        logger.warn("jsMethod: [${jsModule.name}-${jsMethod.name}]")
+                        logger.warn("jsMethod: [${jsModule.name}-${jsMethod.name} -${jsReturn?.type?.resolve()?.declaration?.typeParameters?.joinToString { it.toString() }} ]")
                         initModule.addCode(
                             """
                             |// Method: ${jsMethod.name}
                             |${BridgeModule::methodHandlers.name}["${jsMethod.name}"] = object: MethodHandlerBase() {
                             |    override fun handle(reqId: String, module: String, method: String, params: ByteArray) {
-                            |        val req = params.fromPBArray<${jsParamType}>()
-                            |        $ksClass.${kfun.simpleName.getShortName()}(req, object : $jsReturnType<$jsReturnPType> {
-                            |           override fun invoke(result: Any) {
+                            |        val req = params.fromPBArray<${jsParamType}${ if (jsParamTypeNull == true) "?" else "" }>()
+                            |        $ksClass.${kfun.simpleName.getShortName()}(req, object : $jsReturnType<${jsReturnGenericType}> {
+                            |           override fun invoke(result: ${jsReturnGenericType}) {
                             |               onMethodReturn(reqId, module, method, result.toPBArray())
                             |           }
                             |        })
