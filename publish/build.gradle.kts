@@ -30,7 +30,7 @@ kotlin {
 
     // native平台
     val hostOs = System.getProperty("os.name")
-    val isArm64 = System.getProperty("os.arch") == "aarch64"
+    val isArm64 = System.getProperty("nativeType") == "macArm"
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
         hostOs == "Mac OS X" && isArm64 -> macosArm64("nativePc") {
@@ -73,7 +73,6 @@ kotlin {
 
         // native代码
         val nativePcMain by getting {
-            kotlin.srcDir("build/generated/ksp/nativePc/nativePcMain/kotlin")
             dependsOn(commonMain)
         }
     }
@@ -90,4 +89,9 @@ android {
 dependencies {
     add("kspCommonMainMetadata", project(":nativeBridge-processor"))
     add("kspNativePc", project(":nativeBridge-processor"))
+}
+kotlin.sourceSets {
+    val nativePcMain by getting {
+        kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
+    }
 }
