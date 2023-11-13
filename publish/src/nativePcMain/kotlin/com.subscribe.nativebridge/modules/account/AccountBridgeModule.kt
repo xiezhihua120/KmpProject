@@ -35,6 +35,9 @@ object AccountBridgeModule {
     @Event("remove")
     object EventRemove : EventHandlerBase<EventAccountRemove>()
 
+    /**
+     * 方法：初始化
+     */
     @Method("init")
     fun init(
         @Param param: AccountInitReq, @Return methodReturn: MethodReturn<AccountInitResp>
@@ -42,6 +45,9 @@ object AccountBridgeModule {
         EventAdd.sendEvent(EventAccountAdd(listOf("Jerry")))
     }
 
+    /**
+     * 方法：注销
+     */
     @Method("release")
     fun release(
         @Param param: AccountReleaseReq, @Return methodReturn: MethodReturn<AccountReleaseResp>
