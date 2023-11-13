@@ -112,7 +112,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
                 // 模块方法
                 ksClassDec.declarations.filter { it is KSFunctionDeclaration }
                     .map { it as KSFunctionDeclaration }.forEach { kfun ->
-                        generateMethodCode(kfun, jsModule, initModule, ksClass)
+                        generateMethodCode(fileSpec, kfun, jsModule, initModule, ksClass)
                     }
 
                 // 模块事件
@@ -193,6 +193,7 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
 
     @OptIn(KspExperimental::class)
     private fun generateMethodCode(
+        fileSpec: FileSpec.Builder,
         kfun: KSFunctionDeclaration,
         jsModule: Module,
         initModule: FunSpec.Builder,
@@ -209,6 +210,16 @@ class JSBridgeProcessor(private val codeGenerator: CodeGenerator, private val lo
             jsReturn?.type?.element?.typeArguments?.firstOrNull()?.type?.resolve()
 
         logger.info("jsMethod: [${jsModule.name}-${jsMethod.name}]")
+        val paramClassName = ClassName(
+            jsParamType!!.declaration.packageName.asString(),
+            jsParamType.declaration.simpleName.getShortName()
+        )
+        val returnClassName = ClassName(
+            jsReturnGenericType!!.declaration.packageName.asString(),
+            jsReturnGenericType.declaration.simpleName.getShortName()
+        )
+        fileSpec.addImport(paramClassName, "")
+        fileSpec.addImport(returnClassName, "")
         initModule.addCode(
             """
                                 |// Method: ${jsMethod.name}
