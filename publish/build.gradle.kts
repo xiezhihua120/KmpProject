@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("com.google.devtools.ksp")
+    id("com.subscribe.gradlex")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -95,3 +96,13 @@ kotlin.sourceSets {
         kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
     }
 }
+
+NativeBridge {
+    title = "xiezh"
+    chapter = 0
+    sub {
+        author = "none"
+    }
+}
+
+

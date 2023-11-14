@@ -2,6 +2,9 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
     repositories {
         google()
+        maven {
+            url = uri("${rootProject.projectDir}/supports/foundation/plugins/local-plugin-repository")
+        }
         gradlePluginPortal()
         mavenCentral()
     }
@@ -26,3 +29,8 @@ include("nativeBridge-annotation")
 project(":nativeBridge-annotation").projectDir = file("supports/foundation/nativeBridge/nativeBridge-annotation")
 include("nativeBridge-processor")
 project(":nativeBridge-processor").projectDir = file("supports/foundation/nativeBridge/nativeBridge-processor")
+include(":gradlex")
+
+include(":gradlex")
+project(":gradlex").projectDir = file("supports/foundation/plugins/gradlex")
+

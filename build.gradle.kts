@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlinAndroid).apply(false)
     alias(libs.plugins.kotlinMultiplatform).apply(false)
     alias(libs.plugins.ksp).apply(false)
+    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
+    id("com.subscribe.gradlex").version("1.0.2")
 }
 
 subprojects {
