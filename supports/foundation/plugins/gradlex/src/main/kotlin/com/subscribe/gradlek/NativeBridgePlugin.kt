@@ -12,13 +12,11 @@ class NativeBridgePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         println(">>>>>>>>  " + this::class.qualifiedName)
         val extension = project.extensions.create("NativeBridge", MainExtension::class.java)
-        project.task("sqlAlightPluginTask") { task ->
-            task.doLast {
-                println("这是插件${this::class.qualifiedName}，它创建了一个Task：${task.name}")
-                println("title = ${extension.title}")
-                println("chapter = ${extension.chapter}")
-                println("author = ${extension.sub.author}")
-            }
+        project.afterEvaluate {
+            println("这是插件 ${this::class.qualifiedName}")
+            println("title = ${extension.title}")
+            println("chapter = ${extension.chapter}")
+            println("author = ${extension.sub.author}")
         }
     }
 }
