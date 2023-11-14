@@ -99,12 +99,11 @@ kotlin.sourceSets {
 
 NativeBridge {
     title = "haha"
-    chapter = 8
     sub {
         author = "xiezh"
     }
 }
 
-println("xiezh: ${NativeBridge.title}")
+println("xiezh: ${NativeBridge.printVersion()}")
 
 

@@ -2,6 +2,7 @@ package com.subscribe.gradlek
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import kotlin.random.Random
 
 /**
  * Created on 2023/11/14
@@ -15,16 +16,22 @@ class NativeBridgePlugin : Plugin<Project> {
         project.afterEvaluate {
             println("这是插件 ${this::class.qualifiedName}")
             println("title = ${extension.title}")
-            println("chapter = ${extension.chapter}")
+            println("version = ${extension.version}")
             println("author = ${extension.sub.author}")
         }
     }
 }
 
-open class MainExtension(project: Project) {
+open class MainExtension(private val project: Project) {
     var title: String = ""
-    var chapter: Int = 0
+    val version: String get() {
+        return "version_${project.name}_${Random.nextInt()}"
+    }
     var sub: SubExtension = SubExtension()
+
+    fun printVersion() {
+        println("MainExtension: $version")
+    }
 
     init {
         sub = project.extensions.create("sub", SubExtension::class.java)

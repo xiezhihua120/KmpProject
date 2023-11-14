@@ -36,7 +36,7 @@ project(":gradlex").projectDir = file("supports/foundation/plugins/gradlex")
 
 gradle.addBuildListener(object : BuildListener {
     override fun settingsEvaluated(settings: Settings) {
-        println("[初始化开始...]")
+        // empty impl
     }
 
     override fun projectsLoaded(gradle: Gradle) {
