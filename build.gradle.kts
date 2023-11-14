@@ -6,3 +6,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform).apply(false)
     alias(libs.plugins.ksp).apply(false)
 }
+
+subprojects {
+    apply(from = "${rootProject.rootDir}/gradle/scripts/github.gradle.kts")
+}
