@@ -13,6 +13,12 @@ gradlePlugin {
             version = "1.0.2"
             implementationClass = "com.subscribe.gradlex.DependenciesPlugin"
         }
+        create("kotlinPlugin") {
+            id = "com.subscribe.gradlek"
+            group = "com.subscribe.gradlek"
+            version = "1.0.2"
+            implementationClass = "com.subscribe.gradlek.NativeBridgePlugin"
+        }
     }
 }
 

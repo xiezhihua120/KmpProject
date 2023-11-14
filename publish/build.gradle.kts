@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("com.google.devtools.ksp")
-    id("com.subscribe.gradlex")
+    id("com.subscribe.gradlek")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -98,11 +98,9 @@ kotlin.sourceSets {
 }
 
 NativeBridge {
-    title = "xiezh"
-    chapter = 0
-    sub {
-        author = "none"
-    }
+    title = "haha"
 }
+
+println("xiezh: ${NativeBridge.title}")
 
 

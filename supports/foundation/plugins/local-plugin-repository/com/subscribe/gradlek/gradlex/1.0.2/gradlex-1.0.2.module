@@ -1,0 +1,82 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.subscribe.gradlek",
+    "module": "gradlex",
+    "version": "1.0.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.3-rc-2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.9.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "gradlex-1.0.2.jar",
+          "url": "gradlex-1.0.2.jar",
+          "size": 16457,
+          "sha512": "faf9379006b268cbccf554ae6efc535257e7df66ba6126c5df7b92f864d3284f0b12a526ff4341114419531b803a657ba5bd6bc413301aea2a07b6fd5e56619d",
+          "sha256": "945048328af4836a9edea22c619f7e19defec56f3b37b110b6e37e885074cbd5",
+          "sha1": "9e625eccaa854983033fabfb98f0a7e109ef9e7a",
+          "md5": "c44312a70b79c11c424c45c7954d7313"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.9.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "gradlex-1.0.2.jar",
+          "url": "gradlex-1.0.2.jar",
+          "size": 16457,
+          "sha512": "faf9379006b268cbccf554ae6efc535257e7df66ba6126c5df7b92f864d3284f0b12a526ff4341114419531b803a657ba5bd6bc413301aea2a07b6fd5e56619d",
+          "sha256": "945048328af4836a9edea22c619f7e19defec56f3b37b110b6e37e885074cbd5",
+          "sha1": "9e625eccaa854983033fabfb98f0a7e109ef9e7a",
+          "md5": "c44312a70b79c11c424c45c7954d7313"
+        }
+      ]
+    }
+  ]
+}
