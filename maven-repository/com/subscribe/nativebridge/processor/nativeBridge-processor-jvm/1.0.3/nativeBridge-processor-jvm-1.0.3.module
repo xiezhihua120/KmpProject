@@ -1,0 +1,134 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "url": "../../nativeBridge-processor/1.0.3/nativeBridge-processor-1.0.3.module",
+    "group": "com.subscribe.nativebridge.processor",
+    "module": "nativeBridge-processor",
+    "version": "1.0.3",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.3-rc-2"
+    }
+  },
+  "variants": [
+    {
+      "name": "jvmApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.9.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "nativeBridge-processor-jvm-1.0.3.jar",
+          "url": "nativeBridge-processor-jvm-1.0.3.jar",
+          "size": 17369,
+          "sha512": "fc5fa4c6a0dfc39bfe49cfd4f77280d03a95596ece39d38bf296659121c263da2345ef1a78dca9fe07c8b4ef64c6bd65c66802640d53aa0d0abf5b5ef8ec89dc",
+          "sha256": "470030bc9d20b8eee8a6e1d027c6e03be54c175a87ad31654eada2ff2e770889",
+          "sha1": "b5e3569c4e174bc11a3b7fcfe0e5fa498bea015d",
+          "md5": "768095520f8537c4c9bccb41c1d7af6d"
+        }
+      ]
+    },
+    {
+      "name": "jvmRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.9.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.10"
+          }
+        },
+        {
+          "group": "com.squareup",
+          "module": "kotlinpoet",
+          "version": {
+            "requires": "1.10.2"
+          }
+        },
+        {
+          "group": "com.google.devtools.ksp",
+          "module": "symbol-processing-api",
+          "version": {
+            "requires": "1.8.0-1.0.8"
+          }
+        },
+        {
+          "group": "com.subscribe.nativebridge.annotation",
+          "module": "nativeBridge-annotation",
+          "version": {
+            "requires": "1.0.3"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "nativeBridge-processor-jvm-1.0.3.jar",
+          "url": "nativeBridge-processor-jvm-1.0.3.jar",
+          "size": 17369,
+          "sha512": "fc5fa4c6a0dfc39bfe49cfd4f77280d03a95596ece39d38bf296659121c263da2345ef1a78dca9fe07c8b4ef64c6bd65c66802640d53aa0d0abf5b5ef8ec89dc",
+          "sha256": "470030bc9d20b8eee8a6e1d027c6e03be54c175a87ad31654eada2ff2e770889",
+          "sha1": "b5e3569c4e174bc11a3b7fcfe0e5fa498bea015d",
+          "md5": "768095520f8537c4c9bccb41c1d7af6d"
+        }
+      ]
+    },
+    {
+      "name": "jvmSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "nativeBridge-processor-jvm-1.0.3-sources.jar",
+          "url": "nativeBridge-processor-jvm-1.0.3-sources.jar",
+          "size": 3441,
+          "sha512": "429f44c9f695aada170494356934c2602c24383ae17d2a0c82975dca106818d3fe5460529278a68f5a8529166a76df83a9588aa8499c6d0da083a48cf2a41ec8",
+          "sha256": "bbd64d2f98148bf738ed3a9a2a13b2f028cdbd58f28b58d6631c4c02577cc3ca",
+          "sha1": "62b08ed9ac6e05994fb196064dcfe82e54c21f32",
+          "md5": "a3c8c7ba8b6009c82e636c33a777634e"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.subscribe.nativebridge.annotation",
+    "module": "nativeBridge-annotation",
+    "version": "1.0.3",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.3-rc-2"
+    }
+  },
+  "variants": [
+    {
+      "name": "metadataApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-common",
+          "version": {
+            "requires": "1.9.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "nativeBridge-annotation-metadata-1.0.3.jar",
+          "url": "nativeBridge-annotation-1.0.3.jar",
+          "size": 9048,
+          "sha512": "a06b3fe5f480bb17261b01b2be88863b5b1be0c706da45b0f2abdd8cb3daced15070a17d64844918d0c3b85959f95ce9b9fc4354e63b1806986d1a2990b85aa5",
+          "sha256": "18eccbf230ed1474dfa72b69b57995e8a68c0378e11f13b6563e1e2a8b8c6bf7",
+          "sha1": "17ce22148d11519d4c2948ba2f4eff5caf091e1e",
+          "md5": "3986bdd0dba9d41c58dfa86451dfc7b7"
+        }
+      ]
+    },
+    {
+      "name": "metadataSourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "files": [
+        {
+          "name": "nativeBridge-annotation-kotlin-1.0.3-sources.jar",
+          "url": "nativeBridge-annotation-1.0.3-sources.jar",
+          "size": 8451,
+          "sha512": "f01cf4aa0e95695a83c14111916b30effdb2472e6d1ccd5cb6aa2f138f31627524f34c0e58580d7e7a503daaf70de5c43f664962ee157c5222df2933d1f83eae",
+          "sha256": "b2d9b2fb7a5d5ab78d66236f6628844a9ec5fa9984217e85ef54cb1e3f022127",
+          "sha1": "3568d2359547b222a58d828d5d3f84b8be093fd6",
+          "md5": "2cfa6890251d47563602f6cdea893f6e"
+        }
+      ]
+    },
+    {
+      "name": "iosArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iosarm64/1.0.3/nativeBridge-annotation-iosarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iosarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "iosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iosarm64/1.0.3/nativeBridge-annotation-iosarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iosarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "iosArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iosarm64/1.0.3/nativeBridge-annotation-iosarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iosarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iossimulatorarm64/1.0.3/nativeBridge-annotation-iossimulatorarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iossimulatorarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iossimulatorarm64/1.0.3/nativeBridge-annotation-iossimulatorarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iossimulatorarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iossimulatorarm64/1.0.3/nativeBridge-annotation-iossimulatorarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iossimulatorarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "iosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iosx64/1.0.3/nativeBridge-annotation-iosx64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iosx64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "iosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iosx64/1.0.3/nativeBridge-annotation-iosx64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iosx64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "iosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-iosx64/1.0.3/nativeBridge-annotation-iosx64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-iosx64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "jvmApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-jvm/1.0.3/nativeBridge-annotation-jvm-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-jvm",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "jvmRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-jvm/1.0.3/nativeBridge-annotation-jvm-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-jvm",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "jvmSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-jvm/1.0.3/nativeBridge-annotation-jvm-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-jvm",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "macosArm64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "macos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-macosarm64/1.0.3/nativeBridge-annotation-macosarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-macosarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "macosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "macos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-macosarm64/1.0.3/nativeBridge-annotation-macosarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-macosarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "macosArm64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "macos_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-macosarm64/1.0.3/nativeBridge-annotation-macosarm64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-macosarm64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "macosX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "macos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-macosx64/1.0.3/nativeBridge-annotation-macosx64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-macosx64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "macosX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "macos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-macosx64/1.0.3/nativeBridge-annotation-macosx64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-macosx64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "macosX64MetadataElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "macos_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-macosx64/1.0.3/nativeBridge-annotation-macosx64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-macosx64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "mingwX64ApiElements-published",
+      "attributes": {
+        "artifactType": "org.jetbrains.kotlin.klib",
+        "org.gradle.category": "library",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "mingw_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-mingwx64/1.0.3/nativeBridge-annotation-mingwx64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-mingwx64",
+        "version": "1.0.3"
+      }
+    },
+    {
+      "name": "mingwX64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "mingw_x64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../nativeBridge-annotation-mingwx64/1.0.3/nativeBridge-annotation-mingwx64-1.0.3.module",
+        "group": "com.subscribe.nativebridge.annotation",
+        "module": "nativeBridge-annotation-mingwx64",
+        "version": "1.0.3"
+      }
+    }
+  ]
+}

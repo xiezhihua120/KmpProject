@@ -13,6 +13,9 @@ pluginManagement {
 dependencyResolutionManagement {
     repositories {
         google()
+        maven {
+            url = uri(providers.gradleProperty("subscribe.repo.maven.remote").get())
+        }
         mavenCentral()
     }
 }

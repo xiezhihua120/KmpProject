@@ -1,11 +1,12 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("maven-publish")
     id("org.jetbrains.kotlin.plugin.serialization") version("1.8.10")
 }
 
-group = "com.example"
-version = "1.0-SNAPSHOT"
+group = "com.subscribe.nativebridge.annotation"
+version = "1.0.3"
 
 kotlin {
     jvm()
@@ -42,4 +43,16 @@ android {
     }
 }
 
+val repoPath: String = providers.gradleProperty("subscribe.repo.maven.local").get()
+val repoDir: String =
+    if (repoPath.startsWith(".")) rootProject.file(repoPath).absolutePath else repoPath
+
+publishing {
+    repositories {
+        maven {
+            name = "localPluginRepository"
+            url = uri(repoDir)
+        }
+    }
+}
 
