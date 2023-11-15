@@ -22,11 +22,15 @@ gradlePlugin {
     }
 }
 
+val repoPath: String = providers.gradleProperty("subscribe.repo.maven.local").get()
+val repoDir: String =
+    if (repoPath.startsWith(".")) rootProject.file(repoPath).absolutePath else repoPath
+
 publishing {
     repositories {
         maven {
             name = "localPluginRepository"
-            url = uri(providers.gradleProperty("subscribe.repo.maven.local").get())
+            url = uri(repoDir)
         }
     }
 }
