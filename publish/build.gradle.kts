@@ -92,7 +92,7 @@ dependencies {
     add("kspNativePc", project(":nativeBridge-processor"))
 }
 kotlin.sourceSets {
-    val nativePcMain by getting {
+    named("nativePcMain") {
         kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
     }
 }

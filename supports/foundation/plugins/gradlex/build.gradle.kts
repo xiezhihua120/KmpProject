@@ -26,7 +26,7 @@ publishing {
     repositories {
         maven {
             name = "localPluginRepository"
-            url = uri("../local-plugin-repository")
+            url = uri("https://xiezhihua120.github.io/maven-repository/")
         }
     }
 }
