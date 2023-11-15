@@ -23,7 +23,7 @@ interface NativeBridge {
     /**
      * register event callback ptr
      */
-    fun registerEventCallback(listener: EventCallbackPtr)
+    fun registerEventCallback(callback: EventCallbackPtr)
 
     /**
      * receive method request

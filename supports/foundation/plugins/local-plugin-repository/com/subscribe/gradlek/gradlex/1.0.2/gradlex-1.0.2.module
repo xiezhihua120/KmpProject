@@ -38,11 +38,11 @@
         {
           "name": "gradlex-1.0.2.jar",
           "url": "gradlex-1.0.2.jar",
-          "size": 15332,
-          "sha512": "f8d882cbbcd44dd7037826ea6039bf9af0879c00cca398c7e1f2bff6d60905024b913bf9289b8d0e8396333cc64642172c006b0f7e9e44e86890e214d4bf8cbe",
-          "sha256": "957e14cf1788539748be1bbff1d28189fda2324d62fc055639612133e76c8e06",
-          "sha1": "f33d1ed96a5f4365e82e9d13fbf390311627402f",
-          "md5": "e6af2f3d08eb3f3850774c9b75421826"
+          "size": 17423,
+          "sha512": "01a70cb3ed6a7fe66723690e7e96f1028f5bedba8c2c497c2e8cf2a171267a26c477cfdca8c0d6421582aa67d1debba668b94243a5ff89234fdd83194b322ab2",
+          "sha256": "f21562c319abae6fb7d10dcfa76a4ee115c2aa67e98c19d9e776dbc421f728a1",
+          "sha1": "d4e43f35bda3838d9b49769e2a2721ca5863ca5a",
+          "md5": "6f302af8733ee9e9280f55784741a142"
         }
       ]
     },
@@ -70,11 +70,11 @@
         {
           "name": "gradlex-1.0.2.jar",
           "url": "gradlex-1.0.2.jar",
-          "size": 15332,
-          "sha512": "f8d882cbbcd44dd7037826ea6039bf9af0879c00cca398c7e1f2bff6d60905024b913bf9289b8d0e8396333cc64642172c006b0f7e9e44e86890e214d4bf8cbe",
-          "sha256": "957e14cf1788539748be1bbff1d28189fda2324d62fc055639612133e76c8e06",
-          "sha1": "f33d1ed96a5f4365e82e9d13fbf390311627402f",
-          "md5": "e6af2f3d08eb3f3850774c9b75421826"
+          "size": 17423,
+          "sha512": "01a70cb3ed6a7fe66723690e7e96f1028f5bedba8c2c497c2e8cf2a171267a26c477cfdca8c0d6421582aa67d1debba668b94243a5ff89234fdd83194b322ab2",
+          "sha256": "f21562c319abae6fb7d10dcfa76a4ee115c2aa67e98c19d9e776dbc421f728a1",
+          "sha1": "d4e43f35bda3838d9b49769e2a2721ca5863ca5a",
+          "md5": "6f302af8733ee9e9280f55784741a142"
         }
       ]
     }

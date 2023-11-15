@@ -25,6 +25,7 @@ import kotlinx.coroutines.newSingleThreadContext
  * @function：Native Bridge Api
  */
 @OptIn(ExperimentalForeignApi::class)
+@kotlinx.coroutines.ExperimentalCoroutinesApi
 object NativeBridgeApi : NativeBridge, SynchronizedObject() {
 
     private const val TAG = "JSBridgeApi"

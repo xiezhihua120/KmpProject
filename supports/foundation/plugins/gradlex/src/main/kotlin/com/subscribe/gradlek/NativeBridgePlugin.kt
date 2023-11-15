@@ -2,6 +2,7 @@ package com.subscribe.gradlek
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 import kotlin.random.Random
 
 /**
@@ -18,6 +19,11 @@ class NativeBridgePlugin : Plugin<Project> {
             println("title = ${extension.title}")
             println("version = ${extension.version}")
             println("author = ${extension.sub.author}")
+            project.tasks.find { it.group == "build" && it.name.startsWith("nativePcBinaries") }?.let {
+                it.doLast {
+                    println("拷贝文件到指定目录")
+                }
+            }
         }
     }
 }

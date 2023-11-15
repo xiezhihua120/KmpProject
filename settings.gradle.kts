@@ -3,7 +3,7 @@ pluginManagement {
     repositories {
         google()
         maven {
-            url = uri("${rootProject.projectDir}/supports/foundation/plugins/local-plugin-repository")
+            url = uri(providers.gradleProperty("subscribe.repo.maven.remote").get())
         }
         gradlePluginPortal()
         mavenCentral()

@@ -26,7 +26,7 @@ publishing {
     repositories {
         maven {
             name = "localPluginRepository"
-            url = uri("https://xiezhihua120.github.io/maven-repository/")
+            url = uri(providers.gradleProperty("subscribe.repo.maven.local").get())
         }
     }
 }
