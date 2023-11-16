@@ -118,10 +118,10 @@
           "name": "nativeBridge-annotation-macosx64-1.0.3-metadata.jar",
           "url": "nativeBridge-annotation-macosx64-1.0.3-metadata.jar",
           "size": 261,
-          "sha512": "ee61757f06a916d639927c96fa97fa0a4402bcb3b34b7e5baf86c0946d68c86fb85ba006527dc8b1c96dd5e0736ad07c20fd3e5a2ece065f6f1f90f9b6a25945",
-          "sha256": "c3eb42cd420a17eb603391dd3ec27ea4f9722e592fad794d8e7147c64cf149b0",
-          "sha1": "cdc6381e50264633134fb152195871d802a075bb",
-          "md5": "fba59bcde9f7dc184f22e25a04f59cb3"
+          "sha512": "3d6ebf5a47ca6045ed1ac08a1835acb46d71149e11af9741ca5b7a43e76fa1753252ee6e8140c47ba9a92b7812633af2cf84bb456002dd96795285c24434a8af",
+          "sha256": "27c0868b5095c32f28d71398787f1264c28ffaa25af2495d80104f6933865a4e",
+          "sha1": "bec40a18e410177386582fc0e2c0e2d02adead9c",
+          "md5": "7384a483ab1ac4a59ef6a84083014f59"
         }
       ]
     }

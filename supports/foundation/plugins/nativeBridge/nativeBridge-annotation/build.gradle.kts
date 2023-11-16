@@ -9,7 +9,13 @@ group = "com.subscribe.nativebridge.annotation"
 version = "1.0.3"
 
 kotlin {
-    jvm()
+    jvm {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
     androidTarget {
         compilations.all {
             kotlinOptions {

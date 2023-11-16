@@ -9,7 +9,13 @@ group = "com.subscribe.nativebridge.processor"
 version = "1.0.3"
 
 kotlin {
-    jvm()
+    jvm {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
     sourceSets {
         val jvmMain by getting {
             dependencies {
