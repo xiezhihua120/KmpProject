@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.subscribe.nativebridge.annotation"
-version = "1.0.3"
+version = project.properties["publish.version"].toString()
 
 kotlin {
     jvm {

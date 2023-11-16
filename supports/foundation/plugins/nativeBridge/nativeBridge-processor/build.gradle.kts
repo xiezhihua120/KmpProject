@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.subscribe.nativebridge.processor"
-version = "1.0.3"
+version = project.properties["publish.version"].toString()
 
 kotlin {
     jvm {
@@ -21,7 +21,7 @@ kotlin {
             dependencies {
                 implementation("com.squareup:kotlinpoet:1.10.2")
                 implementation("com.google.devtools.ksp:symbol-processing-api:$kspVersion")
-                implementation("com.subscribe.nativebridge.annotation:nativeBridge-annotation:1.0.3")
+                implementation("com.subscribe.nativebridge.annotation:nativeBridge-annotation:${project.properties["publish.version"].toString()}")
             }
             kotlin.srcDir("src/main/kotlin")
             resources.srcDir("src/main/resources")
