@@ -43,11 +43,11 @@
         {
           "name": "nativeBridge-processor-jvm-1.0.3.jar",
           "url": "nativeBridge-processor-jvm-1.0.3.jar",
-          "size": 17369,
-          "sha512": "fc5fa4c6a0dfc39bfe49cfd4f77280d03a95596ece39d38bf296659121c263da2345ef1a78dca9fe07c8b4ef64c6bd65c66802640d53aa0d0abf5b5ef8ec89dc",
-          "sha256": "470030bc9d20b8eee8a6e1d027c6e03be54c175a87ad31654eada2ff2e770889",
-          "sha1": "b5e3569c4e174bc11a3b7fcfe0e5fa498bea015d",
-          "md5": "768095520f8537c4c9bccb41c1d7af6d"
+          "size": 17371,
+          "sha512": "eb80368e24a27550790438b2a3b2d3eec813427c4922c3cdb3d649c2a53aa21a74649f50877de649ff83effceff74a788a7a4ef1be0490bc0927924ff35db9b6",
+          "sha256": "5ecea8b98e21f37e8b4d9d207948020d104c77a30c8bf1e904f937b9bf138700",
+          "sha1": "0909bae596269547209f1f1f6fe10d544f9ba074",
+          "md5": "8942c736d0c140530c7f7cdccac5a766"
         }
       ]
     },
@@ -100,11 +100,11 @@
         {
           "name": "nativeBridge-processor-jvm-1.0.3.jar",
           "url": "nativeBridge-processor-jvm-1.0.3.jar",
-          "size": 17369,
-          "sha512": "fc5fa4c6a0dfc39bfe49cfd4f77280d03a95596ece39d38bf296659121c263da2345ef1a78dca9fe07c8b4ef64c6bd65c66802640d53aa0d0abf5b5ef8ec89dc",
-          "sha256": "470030bc9d20b8eee8a6e1d027c6e03be54c175a87ad31654eada2ff2e770889",
-          "sha1": "b5e3569c4e174bc11a3b7fcfe0e5fa498bea015d",
-          "md5": "768095520f8537c4c9bccb41c1d7af6d"
+          "size": 17371,
+          "sha512": "eb80368e24a27550790438b2a3b2d3eec813427c4922c3cdb3d649c2a53aa21a74649f50877de649ff83effceff74a788a7a4ef1be0490bc0927924ff35db9b6",
+          "sha256": "5ecea8b98e21f37e8b4d9d207948020d104c77a30c8bf1e904f937b9bf138700",
+          "sha1": "0909bae596269547209f1f1f6fe10d544f9ba074",
+          "md5": "8942c736d0c140530c7f7cdccac5a766"
         }
       ]
     },

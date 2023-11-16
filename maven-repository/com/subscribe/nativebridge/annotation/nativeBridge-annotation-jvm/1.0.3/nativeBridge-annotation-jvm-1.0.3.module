@@ -43,11 +43,11 @@
         {
           "name": "nativeBridge-annotation-jvm-1.0.3.jar",
           "url": "nativeBridge-annotation-jvm-1.0.3.jar",
-          "size": 21983,
-          "sha512": "f5dd39f2cd6e8960bc4411df3b5caef7c1e175c7e257ffca22ebbe711aff85c83de820fd7443c1ba87ef004af9523cd8dbf4c27dfde92ce314a8b52d6638f87d",
-          "sha256": "c00e778757d4e2d9af2601cf85279d99b5c8f8d020036bf769116dd80df7bb0e",
-          "sha1": "30be454aaaa080c697c7623e2ab46a7eaffd16e6",
-          "md5": "32e415663b3a402f6bdb528485dc8eb2"
+          "size": 21977,
+          "sha512": "0e52e3fd69a3d929c0bd862de73a5b8ef2b50f3fb9e23efd4333e9f3d9431aac5dbb80d81b592535e861eaa180ed58b803888f8623e64fb0e94aaed7e8b8fee9",
+          "sha256": "32ea82b49d948ea7f07c75b585d01e33fc7a0df0e845175d6f93371a91604e33",
+          "sha1": "7233c92cfaa7d23df0cb86a12ced4d3f70604576",
+          "md5": "cc90cdd145f338d26c4606b8fd027451"
         }
       ]
     },
@@ -93,11 +93,11 @@
         {
           "name": "nativeBridge-annotation-jvm-1.0.3.jar",
           "url": "nativeBridge-annotation-jvm-1.0.3.jar",
-          "size": 21983,
-          "sha512": "f5dd39f2cd6e8960bc4411df3b5caef7c1e175c7e257ffca22ebbe711aff85c83de820fd7443c1ba87ef004af9523cd8dbf4c27dfde92ce314a8b52d6638f87d",
-          "sha256": "c00e778757d4e2d9af2601cf85279d99b5c8f8d020036bf769116dd80df7bb0e",
-          "sha1": "30be454aaaa080c697c7623e2ab46a7eaffd16e6",
-          "md5": "32e415663b3a402f6bdb528485dc8eb2"
+          "size": 21977,
+          "sha512": "0e52e3fd69a3d929c0bd862de73a5b8ef2b50f3fb9e23efd4333e9f3d9431aac5dbb80d81b592535e861eaa180ed58b803888f8623e64fb0e94aaed7e8b8fee9",
+          "sha256": "32ea82b49d948ea7f07c75b585d01e33fc7a0df0e845175d6f93371a91604e33",
+          "sha1": "7233c92cfaa7d23df0cb86a12ced4d3f70604576",
+          "md5": "cc90cdd145f338d26c4606b8fd027451"
         }
       ]
     },

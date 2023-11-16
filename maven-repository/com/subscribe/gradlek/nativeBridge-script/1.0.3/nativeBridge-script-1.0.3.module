@@ -20,7 +20,7 @@
         "org.gradle.category": "library",
         "org.gradle.dependency.bundling": "external",
         "org.gradle.jvm.environment": "standard-jvm",
-        "org.gradle.jvm.version": 18,
+        "org.gradle.jvm.version": 17,
         "org.gradle.libraryelements": "jar",
         "org.gradle.usage": "java-api",
         "org.jetbrains.kotlin.platform.type": "jvm"
@@ -38,11 +38,11 @@
         {
           "name": "nativeBridge-script-1.0.3.jar",
           "url": "nativeBridge-script-1.0.3.jar",
-          "size": 17459,
-          "sha512": "5ef1dc6ddd591110049e9299089cb4b08af6b24884dd061c801e3fb40bc27fa681532d93ac0296c6a5c81a3d91517d946d471c43db1b9b594179976da7234cae",
-          "sha256": "112740ab63ae9f8f582ecc991d95333f642e891e7b66df64e82f39c512b45bc5",
-          "sha1": "3b245aa637449b4fe1e47d114419f3525c24cf88",
-          "md5": "b53099f887a5ffb630da8576a8dd740e"
+          "size": 17458,
+          "sha512": "552b559b3b9008f3c50f71e2aaad6b8da6f911f1674f20ef08b900122fda13eef5ca5e77c7ab708578bd97e1ffb9167f620d12703e7bf6713bf2e12fa1540d99",
+          "sha256": "914f6ae97f3f41a92018496cbfd4abe95ee060320b13971fa4428224640e0707",
+          "sha1": "99969bba39343942cff4d046a9004272c99f8c83",
+          "md5": "c48d9258b775fd920fccffd537adca3d"
         }
       ]
     },
@@ -52,7 +52,7 @@
         "org.gradle.category": "library",
         "org.gradle.dependency.bundling": "external",
         "org.gradle.jvm.environment": "standard-jvm",
-        "org.gradle.jvm.version": 18,
+        "org.gradle.jvm.version": 17,
         "org.gradle.libraryelements": "jar",
         "org.gradle.usage": "java-runtime",
         "org.jetbrains.kotlin.platform.type": "jvm"
@@ -70,11 +70,11 @@
         {
           "name": "nativeBridge-script-1.0.3.jar",
           "url": "nativeBridge-script-1.0.3.jar",
-          "size": 17459,
-          "sha512": "5ef1dc6ddd591110049e9299089cb4b08af6b24884dd061c801e3fb40bc27fa681532d93ac0296c6a5c81a3d91517d946d471c43db1b9b594179976da7234cae",
-          "sha256": "112740ab63ae9f8f582ecc991d95333f642e891e7b66df64e82f39c512b45bc5",
-          "sha1": "3b245aa637449b4fe1e47d114419f3525c24cf88",
-          "md5": "b53099f887a5ffb630da8576a8dd740e"
+          "size": 17458,
+          "sha512": "552b559b3b9008f3c50f71e2aaad6b8da6f911f1674f20ef08b900122fda13eef5ca5e77c7ab708578bd97e1ffb9167f620d12703e7bf6713bf2e12fa1540d99",
+          "sha256": "914f6ae97f3f41a92018496cbfd4abe95ee060320b13971fa4428224640e0707",
+          "sha1": "99969bba39343942cff4d046a9004272c99f8c83",
+          "md5": "c48d9258b775fd920fccffd537adca3d"
         }
       ]
     }

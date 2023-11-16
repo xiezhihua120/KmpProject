@@ -92,7 +92,7 @@ dependencies {
     add("kspNativePc", "com.subscribe.nativebridge.processor:nativeBridge-processor-jvm:1.0.3")
 }
 kotlin.sourceSets {
-    named("nativePcMain") {
+    val nativePcMain by getting {
         kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
     }
 }
