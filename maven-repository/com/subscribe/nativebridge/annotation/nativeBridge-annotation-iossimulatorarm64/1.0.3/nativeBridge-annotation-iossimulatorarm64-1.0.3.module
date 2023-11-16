@@ -11,7 +11,7 @@
   },
   "createdBy": {
     "gradle": {
-      "version": "8.3-rc-2"
+      "version": "8.1.1"
     }
   },
   "variants": [
@@ -118,10 +118,10 @@
           "name": "nativeBridge-annotation-iossimulatorarm64-1.0.3-metadata.jar",
           "url": "nativeBridge-annotation-iossimulatorarm64-1.0.3-metadata.jar",
           "size": 261,
-          "sha512": "53b2aaeeee00800c673ca9d2098ae0359d1a46832e487e0320fb9f94a34d8567a3aa39811e37bd71397ec91c680cfaa9aa4a249f921a414974cbe86f3d87fe3e",
-          "sha256": "95929c0c501616d23fba5a816e8f29c7ac8831651bc0eeff4ffd3d71112c9bd1",
-          "sha1": "72b3c3c4982fc5d9b671350b2e3264a1baa1398b",
-          "md5": "61cee8d862c248a965e1dd7609aae6d1"
+          "sha512": "4b91e1fc21d4c11803582071c06d71ce1e47a089683f5ba5725c67a340ac6f6160fd4e5bd936b11fa5be634eb466f56676fcb4dd4cbac36425b0a754f2389f1a",
+          "sha256": "ce13baa59c1fc29f4a852b9ff9dc285acbb9dfe1a1012eb87336b7df2daf7f47",
+          "sha1": "80f2439b40bebcb63263767ee086e20fb7264625",
+          "md5": "59983374ffc8bbaeb0beab9f619a3d8d"
         }
       ]
     }

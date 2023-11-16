@@ -10,7 +10,7 @@
   },
   "createdBy": {
     "gradle": {
-      "version": "8.3-rc-2"
+      "version": "8.1.1"
     }
   },
   "variants": [
@@ -39,10 +39,10 @@
           "name": "nativeBridge-script-1.0.3.jar",
           "url": "nativeBridge-script-1.0.3.jar",
           "size": 17458,
-          "sha512": "552b559b3b9008f3c50f71e2aaad6b8da6f911f1674f20ef08b900122fda13eef5ca5e77c7ab708578bd97e1ffb9167f620d12703e7bf6713bf2e12fa1540d99",
-          "sha256": "914f6ae97f3f41a92018496cbfd4abe95ee060320b13971fa4428224640e0707",
-          "sha1": "99969bba39343942cff4d046a9004272c99f8c83",
-          "md5": "c48d9258b775fd920fccffd537adca3d"
+          "sha512": "b024d4eac5ba64ebcf9b171fe52ae1421b5e85b0907b3e358920b3970ce84def157b2f314c4ada62a378f0ddcfdc287c97b5df71b512b4cea9e822e6dda32bdf",
+          "sha256": "f1b06925060f9ee1e537c684b5f1762c778ef87f0ea25768f0dec3d8cf3ebaa6",
+          "sha1": "29c751f3b19bca4aabfad77b8f7066d0fc5ba1e0",
+          "md5": "31a963ad290191462299e901e7b9f590"
         }
       ]
     },
@@ -71,10 +71,10 @@
           "name": "nativeBridge-script-1.0.3.jar",
           "url": "nativeBridge-script-1.0.3.jar",
           "size": 17458,
-          "sha512": "552b559b3b9008f3c50f71e2aaad6b8da6f911f1674f20ef08b900122fda13eef5ca5e77c7ab708578bd97e1ffb9167f620d12703e7bf6713bf2e12fa1540d99",
-          "sha256": "914f6ae97f3f41a92018496cbfd4abe95ee060320b13971fa4428224640e0707",
-          "sha1": "99969bba39343942cff4d046a9004272c99f8c83",
-          "md5": "c48d9258b775fd920fccffd537adca3d"
+          "sha512": "b024d4eac5ba64ebcf9b171fe52ae1421b5e85b0907b3e358920b3970ce84def157b2f314c4ada62a378f0ddcfdc287c97b5df71b512b4cea9e822e6dda32bdf",
+          "sha256": "f1b06925060f9ee1e537c684b5f1762c778ef87f0ea25768f0dec3d8cf3ebaa6",
+          "sha1": "29c751f3b19bca4aabfad77b8f7066d0fc5ba1e0",
+          "md5": "31a963ad290191462299e901e7b9f590"
         }
       ]
     }
