@@ -9,11 +9,11 @@ version = project.properties["publish.version"].toString()
 
 gradlePlugin {
     plugins {
-        create("simplePlugin") {
-            id = "com.subscribe.gradlex"
-            group = "com.subscribe.gradlex"
-            implementationClass = "com.subscribe.gradlex.DependenciesPlugin"
-        }
+//        create("simplePlugin") {
+//            id = "com.subscribe.gradlex"
+//            group = "com.subscribe.gradlex"
+//            implementationClass = "com.subscribe.gradlex.DependenciesPlugin"
+//        }
         create("kotlinPlugin") {
             id = "com.subscribe.gradlek"
             group = "com.subscribe.gradlek"
@@ -29,7 +29,7 @@ val repoDir: String =
 publishing {
     repositories {
         maven {
-            name = "localPluginRepository"
+            name = "NativeBridge"
             url = uri(repoDir)
         }
     }
