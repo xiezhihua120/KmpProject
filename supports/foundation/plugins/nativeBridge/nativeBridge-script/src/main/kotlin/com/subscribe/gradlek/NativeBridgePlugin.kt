@@ -25,14 +25,14 @@ import java.io.File
 class NativeBridgePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         println(">>>>>>>>  " + this::class.qualifiedName)
-        val extension = target.extensions.create("NativeBridge", MainExtension::class.java)
+        val extension = target.extensions.create("NativeBridge", NativeBridgeExtension::class.java)
         target.afterEvaluate {
             configNativeBridge(extension, target)
         }
     }
 
     private fun configNativeBridge(
-        extension: MainExtension, target: Project
+        extension: NativeBridgeExtension, target: Project
     ) {
         println("这是插件 ${this::class.qualifiedName}")
         println("namedSourceSets = ${extension.namedSourceSets}")
@@ -88,18 +88,18 @@ class NativeBridgePlugin : Plugin<Project> {
     }
 }
 
-open class MainExtension(private val project: Project) {
+open class NativeBridgeExtension(private val project: Project) {
     var namedSourceSets: String = ""
-    var info: SubExtension = SubExtension(project)
+    var info: InfoExtension = InfoExtension(project)
 
     fun printVersion() {
         println("MainExtension: $namedSourceSets")
     }
 
     init {
-        info = project.extensions.create("info", SubExtension::class.java, project)
+        info = project.extensions.create("info", InfoExtension::class.java, project)
     }
 }
-open class SubExtension(private val project: Project) {
+open class InfoExtension(private val project: Project) {
     var version: String = "version_${project.name}_0"
 }
