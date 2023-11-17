@@ -43,25 +43,48 @@ class NativeBridgePlugin : Plugin<Project> {
             }
         }
 
-        target.dependencies.add(
-            "kspCommonMainMetadata", target.rootProject.findProject(":nativeBridge-processor")
-        )
-        target.dependencies.add(
-            "kspNativePc", target.rootProject.findProject(":nativeBridge-processor")
-        )
-
-        val isMultiplatform = target.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
-        val sourceSetName = if (isMultiplatform) "nativePcMain" else "main"
+        // Add the ksp compiler
+        val sourceSetName = extension.namedSourceSets
+        if (sourceSetName == "commonMain") {
+            target.dependencies.add(
+                "kspCommonMainMetadata", target.rootProject.findProject(":nativeBridge-processor")
+            )
+        } else {
+            val sourceSetPrefix = removeSuffix(sourceSetName, "Main")
+            target.dependencies.add(
+                "ksp${capitalizeFirstLetter(sourceSetPrefix)}",
+                target.rootProject.findProject(":nativeBridge-processor")
+            )
+        }
         val containerClass = KotlinSourceSetContainer::class.java
+        val allSourceSet = target.extensions.getByType(containerClass).sourceSets
 
         // Add the runtime dependency.
-        val allSourceSet = target.extensions.getByType(containerClass).sourceSets
-        val namedSourceSet = allSourceSet.getByName(sourceSetName)
-        val namedSourceSetApi = target.configurations.getByName(namedSourceSet.apiConfigurationName)
-        namedSourceSetApi.dependencies.addAll(buildList {
-            add(target.dependencies.create(target.rootProject.findProject(":nativeBridge-annotation")))
-        })
-        namedSourceSet.kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
+        listOf(sourceSetName).forEach { sourceName ->
+            val namedSourceSet = allSourceSet.getByName(sourceName)
+            val namedSourceSetApi =
+                target.configurations.getByName(namedSourceSet.apiConfigurationName)
+            namedSourceSetApi.dependencies.addAll(buildList {
+                add(target.dependencies.create(target.rootProject.findProject(":nativeBridge-annotation")))
+            })
+            namedSourceSet.kotlin.srcDir(
+                "build${File.separator}" + "generated${File.separator}" + "ksp${File.separator}" + "${
+                    removeSuffix(sourceName, "Main")
+                }${File.separator}" + "${sourceName}${File.separator}" + "kotlin"
+            )
+        }
+    }
+
+    private fun capitalizeFirstLetter(str: String?): String? {
+        return if (str.isNullOrEmpty()) {
+            str
+        } else str[0].uppercaseChar().toString() + str.substring(1)
+    }
+
+    private fun removeSuffix(str: String, suffix: String): String {
+        return if (str.endsWith(suffix)) {
+            str.substring(0, str.length - suffix.length)
+        } else str
     }
 }
 

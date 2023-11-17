@@ -73,6 +73,7 @@ kotlin {
 
         // native代码
         val nativePcMain by getting {
+            dependencies { implementation(project(":nativeBridge-annotation")) }
             dependsOn(commonMain)
         }
     }
@@ -87,12 +88,10 @@ android {
 }
 
 NativeBridge {
-//    namedSourceSets = "nativePcMain"
-//    info {
-//        version = "1.0.0"
-//    }
+    namedSourceSets = "nativePcMain"
+    info {
+        version = "1.0.0"
+    }
 }
-
-println("xiezh: ${NativeBridge.printVersion()}")
 
 
