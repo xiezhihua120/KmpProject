@@ -52,7 +52,7 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                implementation("com.subscribe.nativebridge.annotation:nativeBridge-annotation:1.0.4")
+                implementation(project(":nativeBridge-annotation"))
                 api(project(":welcome"))
             }
         }
@@ -88,8 +88,8 @@ android {
 }
 
 dependencies {
-    add("kspCommonMainMetadata", "com.subscribe.nativebridge.processor:nativeBridge-processor-jvm:1.0.4")
-    add("kspNativePc", "com.subscribe.nativebridge.processor:nativeBridge-processor-jvm:1.0.4")
+    add("kspCommonMainMetadata", project(":nativeBridge-processor"))
+    add("kspNativePc", project(":nativeBridge-processor"))
 }
 kotlin.sourceSets {
     val nativePcMain by getting {

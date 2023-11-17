@@ -21,7 +21,7 @@ kotlin {
             dependencies {
                 implementation("com.squareup:kotlinpoet:1.10.2")
                 implementation("com.google.devtools.ksp:symbol-processing-api:$kspVersion")
-                implementation("com.subscribe.nativebridge.annotation:nativeBridge-annotation:${project.properties["publish.version"].toString()}")
+                implementation(project(":nativeBridge-annotation"))
             }
             kotlin.srcDir("src/main/kotlin")
             resources.srcDir("src/main/resources")
