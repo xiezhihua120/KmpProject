@@ -3,7 +3,7 @@
   "component": {
     "group": "com.subscribe.gradlek",
     "module": "nativeBridge-script",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -36,13 +36,13 @@
       ],
       "files": [
         {
-          "name": "nativeBridge-script-1.0.12.jar",
-          "url": "nativeBridge-script-1.0.12.jar",
-          "size": 17269,
-          "sha512": "a2f376a808d396020a145dd6a7a353e433a4789e6dfb1ac8df8d9eab85a80e1ce8a883ea258a1b03c3a49cad269aea80c53e616686a487e3a4da22ce58d2c7ef",
-          "sha256": "190c3d377ec7c643e0663138a6eee8b273e5109bb1ee027185b019bd1b5b2123",
-          "sha1": "307adbd1814c50917408391b307c42c4dc554343",
-          "md5": "1b9509695a3b286a9768fb82be41fafb"
+          "name": "nativeBridge-script-1.0.13.jar",
+          "url": "nativeBridge-script-1.0.13.jar",
+          "size": 17460,
+          "sha512": "7756c4e20765e7df9cea493f7d44796fe14556fabace42dfefcbc8c6bc5ae3e6ce7b54961dafb456defb384b754f0f6a43ad68c394067e3a4cc1111546efdd44",
+          "sha256": "b08d53e2fc4d4760c7eca806febf472c62f32d2f656636c61396dac3b0d16003",
+          "sha1": "265462975c6f2a086da7c259d20d55112b81ec67",
+          "md5": "2ee67587fb568625e90fddd7591e8322"
         }
       ]
     },
@@ -68,13 +68,13 @@
       ],
       "files": [
         {
-          "name": "nativeBridge-script-1.0.12.jar",
-          "url": "nativeBridge-script-1.0.12.jar",
-          "size": 17269,
-          "sha512": "a2f376a808d396020a145dd6a7a353e433a4789e6dfb1ac8df8d9eab85a80e1ce8a883ea258a1b03c3a49cad269aea80c53e616686a487e3a4da22ce58d2c7ef",
-          "sha256": "190c3d377ec7c643e0663138a6eee8b273e5109bb1ee027185b019bd1b5b2123",
-          "sha1": "307adbd1814c50917408391b307c42c4dc554343",
-          "md5": "1b9509695a3b286a9768fb82be41fafb"
+          "name": "nativeBridge-script-1.0.13.jar",
+          "url": "nativeBridge-script-1.0.13.jar",
+          "size": 17460,
+          "sha512": "7756c4e20765e7df9cea493f7d44796fe14556fabace42dfefcbc8c6bc5ae3e6ce7b54961dafb456defb384b754f0f6a43ad68c394067e3a4cc1111546efdd44",
+          "sha256": "b08d53e2fc4d4760c7eca806febf472c62f32d2f656636c61396dac3b0d16003",
+          "sha1": "265462975c6f2a086da7c259d20d55112b81ec67",
+          "md5": "2ee67587fb568625e90fddd7591e8322"
         }
       ]
     }

@@ -15,7 +15,7 @@ class DependenciesPlugin implements Plugin<Project> {
                 println("这是插件${this.class.name}，它创建了一个Task：${task.name}")
                 println("title = ${extension.title}")
                 println("chapter = ${extension.chapter}")
-                println("author = ${extension.subExtension.author}")
+                println("author = ${extension.subExtension.version}")
             }
         }
     }

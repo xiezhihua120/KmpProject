@@ -23,12 +23,12 @@ object StartupBridgeModule {
     object EventRemove : EventHandlerBase<Any?>()
 
     @Method("init")
-    fun init(@Param param: String, @Return methodReturn: MethodReturn<Any?>) {
+    fun init(@Param param: String, @Return ret: MethodReturn<Any?>) {
         EventAdd.sendEvent(null)
     }
 
     @Method("release")
-    fun release(@Param param: Any?, @Return methodReturn: MethodReturn<String>) {
+    fun release(@Param param: Any?, @Return ret: MethodReturn<String>) {
         EventRemove.sendEvent(Any())
     }
 

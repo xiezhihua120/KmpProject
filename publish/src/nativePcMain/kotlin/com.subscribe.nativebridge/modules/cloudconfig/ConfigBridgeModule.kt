@@ -23,12 +23,12 @@ object ConfigBridgeModule {
     object EventRemove : EventHandlerBase<Any?>()
 
     @Method("init")
-    fun init(@Param param: String, @Return methodReturn: MethodReturn<Any?>) {
+    fun init(@Param param: String, @Return ret: MethodReturn<Any?>) {
 
     }
 
     @Method("release")
-    fun release(@Param param: Any?, @Return methodReturn: MethodReturn<String>) {
+    fun release(@Param param: Any?, @Return ret: MethodReturn<String>) {
 
     }
 

@@ -40,7 +40,7 @@ object AccountBridgeModule {
      */
     @Method("init")
     fun init(
-        @Param param: AccountInitReq, @Return methodReturn: MethodReturn<AccountInitResp>
+        @Param param: AccountInitReq, @Return ret: MethodReturn<AccountInitResp>
     ) {
         EventAdd.sendEvent(EventAccountAdd(listOf("Jerry")))
     }
@@ -50,7 +50,7 @@ object AccountBridgeModule {
      */
     @Method("release")
     fun release(
-        @Param param: AccountReleaseReq, @Return methodReturn: MethodReturn<AccountReleaseResp>
+        @Param param: AccountReleaseReq, @Return ret: MethodReturn<AccountReleaseResp>
     ) {
         EventRemove.sendEvent(EventAccountRemove(listOf("Jerry")))
     }
