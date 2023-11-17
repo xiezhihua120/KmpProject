@@ -9,17 +9,17 @@ version = project.properties["publish.version"].toString()
 
 gradlePlugin {
     plugins {
-//        create("simplePlugin") {
-//            id = "com.subscribe.gradlex"
-//            group = "com.subscribe.gradlex"
-//            implementationClass = "com.subscribe.gradlex.DependenciesPlugin"
-//        }
         create("kotlinPlugin") {
             id = "com.subscribe.gradlek"
             group = "com.subscribe.gradlek"
             implementationClass = "com.subscribe.gradlek.NativeBridgePlugin"
         }
     }
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
+    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
 }
 
 val repoPath: String = providers.gradleProperty("subscribe.repo.maven.local").get()

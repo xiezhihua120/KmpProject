@@ -86,17 +86,6 @@ android {
     }
 }
 
-//dependencies {
-//    add("kspCommonMainMetadata", project(":nativeBridge-processor"))
-//    add("kspNativePc", project(":nativeBridge-processor"))
-//}
-kotlin.sourceSets {
-    named("nativePcMain") {
-        dependencies { implementation(project(":nativeBridge-annotation")) }
-        kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
-    }
-}
-
 NativeBridge {
 //    namedSourceSets = "nativePcMain"
 //    info {

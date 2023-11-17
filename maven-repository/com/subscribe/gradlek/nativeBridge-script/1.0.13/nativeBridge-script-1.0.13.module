@@ -38,11 +38,11 @@
         {
           "name": "nativeBridge-script-1.0.13.jar",
           "url": "nativeBridge-script-1.0.13.jar",
-          "size": 17460,
-          "sha512": "7756c4e20765e7df9cea493f7d44796fe14556fabace42dfefcbc8c6bc5ae3e6ce7b54961dafb456defb384b754f0f6a43ad68c394067e3a4cc1111546efdd44",
-          "sha256": "b08d53e2fc4d4760c7eca806febf472c62f32d2f656636c61396dac3b0d16003",
-          "sha1": "265462975c6f2a086da7c259d20d55112b81ec67",
-          "md5": "2ee67587fb568625e90fddd7591e8322"
+          "size": 18429,
+          "sha512": "7a813fb6ae8bd9f58cfa8bf6d436575aa5cf7adae97e30f4e095cadb8bd077bb30279780767722ec2dd5f072c97abe2215d808c452cbb66624f1d0f3720f0f6a",
+          "sha256": "0bee5e4c2c32ea37c53a0a124f8cfb691049688ee8d529023d307c51dd8a1c98",
+          "sha1": "d074e6f43a86ba662a2d260641681214d0edec2d",
+          "md5": "e0a593ca19437d1e6d0b0efb2e25e241"
         }
       ]
     },
@@ -60,6 +60,13 @@
       "dependencies": [
         {
           "group": "org.jetbrains.kotlin",
+          "module": "kotlin-gradle-plugin",
+          "version": {
+            "requires": "1.9.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
           "module": "kotlin-stdlib-jdk8",
           "version": {
             "requires": "1.9.10"
@@ -70,11 +77,11 @@
         {
           "name": "nativeBridge-script-1.0.13.jar",
           "url": "nativeBridge-script-1.0.13.jar",
-          "size": 17460,
-          "sha512": "7756c4e20765e7df9cea493f7d44796fe14556fabace42dfefcbc8c6bc5ae3e6ce7b54961dafb456defb384b754f0f6a43ad68c394067e3a4cc1111546efdd44",
-          "sha256": "b08d53e2fc4d4760c7eca806febf472c62f32d2f656636c61396dac3b0d16003",
-          "sha1": "265462975c6f2a086da7c259d20d55112b81ec67",
-          "md5": "2ee67587fb568625e90fddd7591e8322"
+          "size": 18429,
+          "sha512": "7a813fb6ae8bd9f58cfa8bf6d436575aa5cf7adae97e30f4e095cadb8bd077bb30279780767722ec2dd5f072c97abe2215d808c452cbb66624f1d0f3720f0f6a",
+          "sha256": "0bee5e4c2c32ea37c53a0a124f8cfb691049688ee8d529023d307c51dd8a1c98",
+          "sha1": "d074e6f43a86ba662a2d260641681214d0edec2d",
+          "md5": "e0a593ca19437d1e6d0b0efb2e25e241"
         }
       ]
     }

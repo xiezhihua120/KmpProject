@@ -2,46 +2,66 @@ package com.subscribe.gradlek
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.tasks.SourceSet
-import org.gradle.api.tasks.SourceSetContainer
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetContainer
 import java.io.File
-
 
 /**
  * Created on 2023/11/14
  * @author：xiezh
  * @function：
+ * dependencies {
+ *     add("kspCommonMainMetadata", project(":nativeBridge-processor"))
+ *     add("kspNativePc", project(":nativeBridge-processor"))
+ * }
+ * kotlin.sourceSets {
+ *     named("nativePcMain") {
+ *         dependencies { implementation(project(":nativeBridge-annotation")) }
+ *         kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
+ *     }
+ * }
  */
+
+
 class NativeBridgePlugin : Plugin<Project> {
-    override fun apply(project: Project) {
+    override fun apply(target: Project) {
         println(">>>>>>>>  " + this::class.qualifiedName)
-        val extension = project.extensions.create("NativeBridge", MainExtension::class.java)
-        project.afterEvaluate {
-            println("这是插件 ${this::class.qualifiedName}")
-            println("namedSourceSets = ${extension.namedSourceSets}")
-            println("version = ${extension.info.version}")
-            project.tasks.find { it.group == "build" && it.name.startsWith("nativePcBinaries") }?.let {
-                it.doLast {
-                    println("拷贝文件到指定目录")
-                }
+        val extension = target.extensions.create("NativeBridge", MainExtension::class.java)
+        target.afterEvaluate {
+            configNativeBridge(extension, target)
+        }
+    }
+
+    private fun configNativeBridge(
+        extension: MainExtension, target: Project
+    ) {
+        println("这是插件 ${this::class.qualifiedName}")
+        println("namedSourceSets = ${extension.namedSourceSets}")
+        println("version = ${extension.info.version}")
+        target.tasks.find { it.group == "build" && it.name.startsWith("nativePcBinaries") }?.let {
+            it.doLast {
+                println("拷贝文件到指定目录")
             }
-
-            project.dependencies.add("kspCommonMainMetadata", project.rootProject.findProject(":nativeBridge-processor"))
-            project.dependencies.add("kspNativePc", project.rootProject.findProject(":nativeBridge-processor"))
-
         }
 
-//        val sourceSets = project.extensions.getByType(SourceSetContainer::class.java)
-//        val main = sourceSets.getByName("nativePcMain")
-//        main.java.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin"))
-//
-//        project.kotlin.sourceSets {
-//            named("nativePcMain") {
-//                dependencies { implementation(project(":nativeBridge-annotation")) }
-//                kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
-//            }
-//        }
+        target.dependencies.add(
+            "kspCommonMainMetadata", target.rootProject.findProject(":nativeBridge-processor")
+        )
+        target.dependencies.add(
+            "kspNativePc", target.rootProject.findProject(":nativeBridge-processor")
+        )
 
+        val isMultiplatform = target.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
+        val sourceSetName = if (isMultiplatform) "nativePcMain" else "main"
+        val containerClass = KotlinSourceSetContainer::class.java
+
+        // Add the runtime dependency.
+        val allSourceSet = target.extensions.getByType(containerClass).sourceSets
+        val namedSourceSet = allSourceSet.getByName(sourceSetName)
+        val namedSourceSetApi = target.configurations.getByName(namedSourceSet.apiConfigurationName)
+        namedSourceSetApi.dependencies.addAll(buildList {
+            add(target.dependencies.create(target.rootProject.findProject(":nativeBridge-annotation")))
+        })
+        namedSourceSet.kotlin.srcDir("build${File.separator}generated${File.separator}ksp${File.separator}nativePc${File.separator}nativePcMain${File.separator}kotlin")
     }
 }
 
