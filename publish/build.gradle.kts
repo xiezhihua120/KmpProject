@@ -73,7 +73,6 @@ kotlin {
 
         // native代码
         val nativePcMain by getting {
-            dependencies { implementation(project(":nativeBridge-annotation")) }
             dependsOn(commonMain)
         }
     }
