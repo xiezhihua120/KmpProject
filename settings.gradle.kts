@@ -27,6 +27,8 @@ include(":publish")
 project(":publish").projectDir = file("publish")
 include(":welcome")
 project(":welcome").projectDir = file("supports/business/feature/welcome")
+include(":kmpUnitTest")
+project(":kmpUnitTest").projectDir = file("supports/business/general/kmpUnitTest")
 
 gradle.addBuildListener(object : BuildListener {
     override fun settingsEvaluated(settings: Settings) {
