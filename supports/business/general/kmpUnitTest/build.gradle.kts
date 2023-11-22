@@ -55,6 +55,11 @@ kotlin {
         val androidMain by getting {
             dependsOn(commonMain)
         }
+        val androidUnitTest by getting {
+            dependencies {
+                implementation("io.mockk:mockk:1.12.0")
+            }
+        }
 
         // ios代码
         val iosMain by getting {
