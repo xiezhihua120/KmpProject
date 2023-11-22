@@ -28,13 +28,6 @@ project(":publish").projectDir = file("publish")
 include(":welcome")
 project(":welcome").projectDir = file("supports/business/feature/welcome")
 
-include("nativeBridge-annotation")
-project(":nativeBridge-annotation").projectDir = file("supports/foundation/plugins/nativeBridge/nativeBridge-annotation")
-include("nativeBridge-processor")
-project(":nativeBridge-processor").projectDir = file("supports/foundation/plugins/nativeBridge/nativeBridge-processor")
-include(":nativeBridge-script")
-project(":nativeBridge-script").projectDir = file("supports/foundation/plugins/nativeBridge/nativeBridge-script")
-
 gradle.addBuildListener(object : BuildListener {
     override fun settingsEvaluated(settings: Settings) {
         // empty impl
