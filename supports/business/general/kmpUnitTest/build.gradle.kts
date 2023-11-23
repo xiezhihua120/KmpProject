@@ -1,7 +1,6 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("jacoco")
 }
 
 group = "me.allin327"
@@ -81,36 +80,4 @@ android {
         minSdk = 21
     }
 }
-
-
-jacoco {
-    toolVersion = "0.8.7"
-}
-
-tasks.register<JacocoReport>("jacocoTestReport") {
-    group = "verification"
-    dependsOn("testDebugUnitTest")
-
-    println("xiezh:   ${projectDir}/src/commonMain/kotlin")
-    println("xiezh:   ${buildDir}/tmp/kotlin-classes/debug")
-
-    sourceDirectories.setFrom(files(project.fileTree("${projectDir}/src/commonMain/kotlin")))
-    classDirectories.setFrom(project.fileTree("${buildDir}/tmp/kotlin-classes/debug"))
-    executionData.setFrom(fileTree("$buildDir") {
-        setIncludes(
-            listOf(
-                "jacoco/testDebugUnitTest.exec",
-                "outputs/code-coverage/connected/*coverage.ec"
-            )
-        )
-    })
-
-    reports {
-        csv.required.set(false)
-        xml.required.set(true)
-        html.required.set(true)
-        html.outputLocation.set(file("${buildDir}/jacoco"))
-    }
-}
-
 

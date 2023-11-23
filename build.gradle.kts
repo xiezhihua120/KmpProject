@@ -11,4 +11,5 @@ plugins {
 
 subprojects {
     apply(from = "${rootProject.rootDir}/gradle/scripts/github.gradle.kts")
+    apply(from = "${rootProject.rootDir}/gradle/scripts/jacoco.gradle.kts")
 }
