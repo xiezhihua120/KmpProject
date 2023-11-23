@@ -30,7 +30,7 @@ class AnnotationTest {
 
     @Test
     fun getName() {
-        //every { car.getName() } returns "MyCar"
+        every { car.getName() } returns "MyCar"
         val name = car.getName()
         assertEquals("MyCar", name)
     }
