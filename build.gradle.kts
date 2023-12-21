@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform).apply(false)
     alias(libs.plugins.ksp).apply(false)
     alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
-    id("com.subscribe.nativebridge").version("1.0.31") apply false
+    id("com.subscribe.nativebridge").version("1.0.32") apply false
 }
 
 subprojects {
