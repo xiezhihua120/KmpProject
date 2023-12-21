@@ -1,6 +1,10 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
     repositories {
+        maven { url = uri("https://maven.aliyun.com/repository/public/") }
+        maven { url = uri("https://maven.aliyun.com/repository/google/") }
+        maven { url = uri("https://maven.aliyun.com/repository/jcenter/") }
+        maven { url = uri("https://maven.aliyun.com/repository/central/") }
         google()
         maven {
             url = uri(providers.gradleProperty("subscribe.repo.maven.remote").get())
@@ -12,6 +16,10 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        maven { url = uri("https://maven.aliyun.com/repository/public/") }
+        maven { url = uri("https://maven.aliyun.com/repository/google/") }
+        maven { url = uri("https://maven.aliyun.com/repository/jcenter/") }
+        maven { url = uri("https://maven.aliyun.com/repository/central/") }
         google()
         maven {
             url = uri(providers.gradleProperty("subscribe.repo.maven.remote").get())
